@@ -11,10 +11,23 @@
   "devDependencies": {
     "prettier": "^3.7.4",
     "turbo": "^2.10.11",
-    "typescript": "5.9.2"
+    "typescript": "7.0.2"
   },
   "packageManager": "pnpm@9.0.0",
   "engines": {
     "node": ">=18"
+  },
+  "pnpm": {
+    "overrides": {
+      "tmp@<=0.2.3": ">=0.2.4"
+    },
+    "peerDependencyRules": {
+      "allowedVersions": {
+        "storybook": ">=8",
+        "eslint": ">=9",
+        "typescript": ">=4"
+      }
+    }
   }
 }
+
