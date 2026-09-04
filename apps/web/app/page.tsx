@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import { LP_GRID_ITEMS } from "lp-items";
 
 export const metadata: Metadata = {
-  title: "Fullstack Projects Boilerplate",
+  title: "Fullstack Projects Boilerplate - Web",
   twitter: {
     card: "summary_large_image",
   },
@@ -26,7 +26,7 @@ export default function Web() {
         <div className="mx-auto grid max-w-(--breakpoint-xl) px-4 py-8 text-center lg:py-16">
           <div className="mx-auto place-self-center">
             <h1 className="mb-4 max-w-2xl text-4xl leading-none font-extrabold tracking-tight md:text-5xl xl:text-6xl dark:text-white">
-              Fullstack Projects Boilerplate
+              Fullstack Projects Boilerplate - Web
             </h1>
             <p className="mb-6 max-w-2xl font-light text-gray-500 md:text-lg lg:mb-8 lg:text-xl dark:text-gray-400">
              FastAPI + Next.js + TailwindCSS + TypeScript + PostgreSQL + Docker + Vercel

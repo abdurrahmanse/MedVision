@@ -1,5 +1,5 @@
 
-# [Next.js Enterprise Boilerplate](https://blazity.com/open-source/nextjs-enterprise-boilerplate) 
+# [Next.js Projects Boilerplate](https://blazity.com/open-source/nextjs-enterprise-boilerplate) 
 
 A production-ready template for building enterprise applications with Next.js. This boilerplate provides a solid foundation with carefully selected technologies and ready-to-go infrastructure to help you develop high-quality applications efficiently.
 
