@@ -99,13 +99,13 @@ The project is successful when:
 Suggested name:
 
 ```text
-tiny-medical-ml-platform
+MedVision
 ```
 
 ## 1.2 Monorepo structure
 
 ```text
-tiny-medical-ml-platform/
+MedVision/
 ├── apps/
 │   ├── web/
 │   └── api/

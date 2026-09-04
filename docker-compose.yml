@@ -23,6 +23,15 @@ services:
     volumes:
       - redis_data:/data
 
+  ml:
+    build: 
+      context: ./ml
+    container_name: medvision_ml
+    volumes:
+      - ./ml:/app
+      - ./storage:/storage
+    command: tail -f /dev/null
+
 volumes:
   postgres_data:
   redis_data:
