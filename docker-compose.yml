@@ -1,36 +1,75 @@
-version: "3.8"
-
 services:
+  # ─── PostgreSQL Database ───────────────────────────────────────────────────
   db:
-    image: postgres:15-alpine
+    image: postgres:16-alpine
     container_name: medvision_db
-    restart: always
+    restart: unless-stopped
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: medvision
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: ${POSTGRES_DB:-medvision}
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
+  # ─── Redis Cache ───────────────────────────────────────────────────────────
   cache:
     image: redis:7-alpine
     container_name: medvision_cache
-    restart: always
+    restart: unless-stopped
     ports:
       - "6379:6379"
     volumes:
       - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
+  # ─── FastAPI Backend ───────────────────────────────────────────────────────
+  api:
+    build:
+      context: ./apps/api
+      dockerfile: Dockerfile
+    container_name: medvision_api
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./apps/api:/app
+      - ./ml/models:/app/ml/models
+      - ./storage:/storage
+    depends_on:
+      db:
+        condition: service_healthy
+      cache:
+        condition: service_healthy
+
+  # ─── ML / Data Science Environment ────────────────────────────────────────
   ml:
-    build: 
+    build:
       context: ./ml
+      dockerfile: Dockerfile
     container_name: medvision_ml
+    restart: unless-stopped
+    env_file:
+      - .env
     volumes:
       - ./ml:/app
       - ./storage:/storage
     command: tail -f /dev/null
+    depends_on:
+      db:
+        condition: service_healthy
 
 volumes:
   postgres_data:
