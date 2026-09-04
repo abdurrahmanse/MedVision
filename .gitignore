@@ -14,6 +14,8 @@ node_modules
 
 # Testing
 coverage
+.pytest_cache
+htmlcov/
 
 # Turbo
 .turbo
@@ -27,6 +29,30 @@ out/
 build
 dist
 
+# Python & ML
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+.jupyter/
+.ipynb_checkpoints/
+
+# Data & Models
+ml/data/raw/*
+ml/data/interim/*
+!ml/data/raw/.gitkeep
+!ml/data/interim/.gitkeep
+ml/models/*.pt
+ml/models/*.pth
+ml/models/*.h5
+storage/images/*
+!storage/images/.gitkeep
 
 # Debug
 npm-debug.log*
