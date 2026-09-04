@@ -4,6 +4,7 @@ import { LP_GRID_ITEMS } from "lp-items";
 
 export const metadata: Metadata = {
   title: "Fullstack Projects Boilerplate",
+  title: "Fullstack Projects Boilerplate",
   twitter: {
     card: "summary_large_image",
   },

@@ -25,7 +25,8 @@
       "allowedVersions": {
         "storybook": ">=8",
         "eslint": ">=9",
-        "typescript": ">=4"
+        "typescript": ">=4",
+        "type-fest": "*"
       }
     }
   }
