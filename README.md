@@ -1,159 +1,112 @@
-# Turborepo starter
+# MedVision — Tiny Healthcare ML Full-Stack Platform 🩻
 
-This Turborepo starter is maintained by the Turborepo core team.
+> **🚨 IMPORTANT DISCLAIMER:** This is strictly an engineering and educational learning project, not a medical or clinical diagnostic system. The model and its predictions must **never** be presented as a tool for diagnosing pneumonia or making any treatment decisions.
 
-## Using this example
+**MedVision** is a lightweight, end-to-end full-stack Machine Learning project designed to demonstrate how to build, deploy, and serve a deep learning image classifier. It integrates a Convolutional Neural Network (CNN) with a modern web application, showcasing the complete lifecycle from data processing to a user-facing application.
 
-Run the following command:
+## 📖 Problem Statement
 
-```sh
-npx create-turbo@latest
+The goal of this project is to implement a complete ML-to-production pipeline using a miniature system. It demonstrates how to train a model on a reproducible dataset, serve it via a robust API, store prediction metadata, and provide a seamless web interface for interaction.
+
+## 📊 Dataset
+
+This project uses **PneumoniaMNIST**, a lightweight biomedical image classification dataset provided by [MedMNIST](https://medmnist.com/). 
+- **Modality:** Chest X-Ray
+- **Task:** Binary Classification (Normal vs. Pneumonia)
+- **Constraint:** We use a tiny, reproducible subset (e.g., 100 images) with a fixed random seed.
+- **License/Usage:** Intended strictly for research and educational purposes.
+
+## 🏗️ Architecture
+
+The project is structured as a monorepo (using Turborepo) to separate ML experimentation, API routing, and frontend code while sharing types and configurations.
+
+```text
+                  ┌──────────────┐
+                  │   Next.js    │ (Web Frontend)
+                  └──────┬───────┘
+                         │
+                         ▼
+                  ┌──────────────┐
+                  │   FastAPI    │ (Backend API)
+                  └──────┬───────┘
+                         │
+             ┌───────────┼───────────┐
+             ▼           ▼           ▼
+         ML Model    PostgreSQL   Storage
+             │
+             ▼
+       Prediction Result
 ```
 
-## What's inside?
+## 🧠 Machine Learning (ML)
 
-This Turborepo includes the following packages/apps:
+- **Framework:** PyTorch
+- **Preprocessing:** Minimal transformations (image → tensor → normalization).
+- **Models:** Includes a baseline (Logistic Regression) and a tiny custom CNN for binary output.
+- **Evaluation:** Evaluated on a separate validation split for accuracy, precision, recall, and F1-score. Includes a dedicated error analysis phase.
+- **Artifacts:** Models are packaged with metadata (version, input size, class mapping) for robust inference.
 
-### Apps and Packages
+## 🔌 API (FastAPI)
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+A standalone backend service handling image uploads and model inference.
+- **Endpoints:**
+  - `GET /api/v1/health`
+  - `GET /api/v1/model`
+  - `POST /api/v1/predictions` (Handles multipart form-data image uploads)
+  - `GET /api/v1/predictions`
+  - `GET /api/v1/predictions/{id}`
+- **Flow:** Image Upload → Validation → Storage → Preprocessing → Inference → Database Persistence.
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+## 💻 Frontend (Next.js)
 
-### Utilities
+A React-based web application providing a clean UI for end-users.
+- **Pages:** Home, Predict (upload & preview), History (past predictions).
+- **Tech:** TypeScript, Tailwind CSS, TanStack Query.
+- **UX:** Handles all states securely, including uploading, processing, success, and structured API/network errors.
 
-This Turborepo has some additional tools already setup for you:
+## 🗄️ Database & Storage
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+- **Database:** PostgreSQL (managed via Alembic migrations) stores prediction metadata (ID, image URL, predicted class, confidence, model version, timestamp).
+- **Storage:** Images are stored in an object storage abstraction (local storage or S3-compatible) to keep binary files out of the relational database.
 
-### Build
+## 🚀 Run Locally
 
-To build all apps and packages, run the following command:
+### Prerequisites
+- Node.js (v18+) and pnpm (v8+)
+- Python (modern version compatible with PyTorch)
+- Docker & Docker Compose (for database and containerized local running)
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
+### Setup & Run
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/yourusername/MedVision.git
+   cd MedVision
+   ```
+2. **Install frontend/monorepo dependencies:**
+   ```bash
+   pnpm install
+   ```
+3. **Set up environment variables:**
+   Copy `.env.example` to `.env` and fill in the required values (Database URL, Storage paths).
+4. **Start the database (Docker):**
+   ```bash
+   docker compose up -d
+   ```
+5. **Run the development servers:**
+   ```bash
+   pnpm dev
+   ```
 
-```sh
-cd my-turborepo
-turbo build
-```
+## 🧪 Testing
 
-Without global `turbo`, use your package manager:
+- **Backend/API:** Use `pytest` to test endpoints, file validations, prediction logic, and database persistence.
+- **Frontend:** Component testing for upload states, history rendering, and error handling.
+- **Run tests:**
+  *(Add your specific test script commands here, e.g., `pnpm test` or `pytest`)*
 
-```sh
-cd my-turborepo
-npx turbo build
-pnpm dlx turbo build
-pnpm exec turbo build
-```
+## ⚠️ Limitations
 
-You can build a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
-
-```sh
-turbo build --filter=docs
-```
-
-Without global `turbo`:
-
-```sh
-npx turbo build --filter=docs
-pnpm exec turbo build --filter=docs
-pnpm exec turbo build --filter=docs
-```
-
-### Develop
-
-To develop all apps and packages, run the following command:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
-```sh
-cd my-turborepo
-turbo dev
-```
-
-Without global `turbo`, use your package manager:
-
-```sh
-cd my-turborepo
-npx turbo dev
-pnpm exec turbo dev
-pnpm exec turbo dev
-```
-
-You can develop a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
-
-```sh
-turbo dev --filter=web
-```
-
-Without global `turbo`:
-
-```sh
-npx turbo dev --filter=web
-pnpm exec turbo dev --filter=web
-pnpm exec turbo dev --filter=web
-```
-
-### Remote Caching
-
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
-
-Turborepo can use a technique known as [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
-```sh
-cd my-turborepo
-turbo login
-```
-
-Without global `turbo`, use your package manager:
-
-```sh
-cd my-turborepo
-npx turbo login
-pnpm exec turbo login
-pnpm exec turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
-
-```sh
-turbo link
-```
-
-Without global `turbo`:
-
-```sh
-npx turbo link
-pnpm exec turbo link
-pnpm exec turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turborepo.dev/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.dev/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.dev/docs/reference/configuration)
-- [CLI Usage](https://turborepo.dev/docs/reference/command-line-reference)
+- **Tiny Sample Size:** Trained on a heavily restricted subset of data for educational speed and simplicity.
+- **Educational Purpose:** The architecture and model are designed to teach system integration, not to maximize clinical accuracy.
+- **Not Clinically Validated:** No real patient data should be processed.
+- **Metrics:** Training and validation metrics shown in this project are strictly indicative and do not represent real-world diagnostic performance.
