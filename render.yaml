@@ -4,6 +4,7 @@ services:
     env: docker
     rootDir: apps/api
     dockerfilePath: ./Dockerfile
+    dockerfilePath: apps/api/Dockerfile
     plan: free
     healthCheckPath: /api/v1/health
     envVars:
