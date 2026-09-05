@@ -7,6 +7,7 @@ import { LoadingState, ErrorState, EmptyState } from "components/features/histor
 import { MotionReveal } from "components/ui/motion-reveal";
 import { PageTitle } from "components/ui/page-title";
 
+
 export default function HistoryPage() {
   const { data: predictions, isLoading, isError, error } = usePredictions();
 

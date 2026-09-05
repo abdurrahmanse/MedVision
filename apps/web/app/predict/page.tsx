@@ -10,6 +10,7 @@ import { MotionReveal } from "components/ui/motion-reveal";
 import { PageTitle } from "components/ui/page-title";
 import { ErrorAlert } from "components/ui/error-alert";
 
+
 export default function PredictPage() {
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
