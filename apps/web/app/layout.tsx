@@ -1,43 +1,36 @@
+import type { Metadata } from "next";
 import { Rajdhani } from "next/font/google";
-import "styles/tailwind.css";
-import { QueryProvider } from "components/providers/query-provider";
-import { SmoothScrollProvider } from "components/providers/smooth-scroll-provider";
-import { ThemeProvider } from "components/providers/theme-provider";
-import { AuroraBackground } from "components/layout/aurora-background";
+import { AppProviders } from "components/providers/app-providers";
 import { Navbar } from "components/layout/navbar";
 import { Footer } from "components/layout/footer";
 import { DisclaimerBanner } from "components/layout/disclaimer-banner";
+import { AuroraBackground } from "components/layout/aurora-background";
+import "styles/tailwind.css";
 
-const rajdhani = Rajdhani({
+const rajdhani = Rajdhani({ 
   subsets: ["latin"],
-  weight: ["500", "600", "700"],
-})
+  weight: ["300", "400", "500", "600", "700"]
+});
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "MedVision",
   description: "Educational Pneumonia Detection API — NOT for clinical use.",
-}
+};
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${rajdhani.className} bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-950 dark:via-gray-900 dark:to-indigo-950 text-gray-900 dark:text-gray-100 min-h-screen flex flex-col transition-colors duration-500`}>
-        <AuroraBackground />
-        <SmoothScrollProvider>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <QueryProvider>
-            <Navbar />
-            <main className="flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 relative z-10 flex flex-col justify-center">
-              {children}
-            </main>
-            <div className="w-full max-w-7xl mx-auto px-4 sm:px-0 relative z-10 pb-10">
-              <DisclaimerBanner />
-            </div>
-            <Footer />
-          </QueryProvider>
-        </ThemeProvider>
-        </SmoothScrollProvider>
+      <body className={`${rajdhani.className} min-h-screen flex flex-col bg-white dark:bg-gray-950 text-slate-900 dark:text-slate-50 transition-colors duration-500 selection:bg-blue-500 selection:text-white`}>
+        <AppProviders>
+          <AuroraBackground />
+          <Navbar />
+          <main className="flex-grow flex flex-col relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            {children}
+          </main>
+          <DisclaimerBanner />
+          <Footer />
+        </AppProviders>
       </body>
     </html>
-  )
+  );
 }
