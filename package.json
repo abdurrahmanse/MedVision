@@ -7,7 +7,7 @@
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "check-types": "turbo run check-types",
-    "predev": "npx kill-port 3000 3001",
+    "predev": "npx kill-port 3000 3001 8000",
     "kill-ports": "npx kill-port 3000 3001 8000"
   },
   "devDependencies": {
