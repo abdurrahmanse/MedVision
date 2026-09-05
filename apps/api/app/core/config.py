@@ -14,6 +14,13 @@ class Settings(BaseSettings):
     environment: str = "development"
     api_port: int = 8000
 
+    # Cloudflare R2
+    cloudflare_r2_endpoint_url: str = ""
+    cloudflare_r2_access_key_id: str = ""
+    cloudflare_r2_secret_access_key: str = ""
+    cloudflare_r2_bucket_name: str = ""
+    cloudflare_r2_public_url: str = ""
+
     # Database
     database_url: str
 

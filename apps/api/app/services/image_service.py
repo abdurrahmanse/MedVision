@@ -53,14 +53,41 @@ class ImageService:
         if width < 28 or height < 28:
             raise APIError(code="INVALID_IMAGE", message="Image dimensions too small (minimum 28x28).", status_code=400)
 
-        # Save file
+        # Save file to Cloudflare R2 or local depending on config
         prediction_id = str(uuid.uuid4())
         ext = ".png" if image.content_type == "image/png" else ".jpg"
         filename = f"{prediction_id}{ext}"
-        filepath = os.path.join(STORAGE_DIR, filename)
         
-        with open(filepath, "wb") as f:
-            f.write(contents)
+        if settings.cloudflare_r2_bucket_name and settings.cloudflare_r2_endpoint_url:
+            import boto3
+            import asyncio
             
-        image_url = f"/storage/uploads/{filename}"
+            s3_client = boto3.client(
+                's3',
+                endpoint_url=settings.cloudflare_r2_endpoint_url,
+                aws_access_key_id=settings.cloudflare_r2_access_key_id,
+                aws_secret_access_key=settings.cloudflare_r2_secret_access_key,
+                region_name='auto'
+            )
+            
+            def upload_to_r2():
+                s3_client.put_object(
+                    Bucket=settings.cloudflare_r2_bucket_name,
+                    Key=f"uploads/{filename}",
+                    Body=contents,
+                    ContentType=image.content_type
+                )
+                
+            await asyncio.to_thread(upload_to_r2)
+            
+            # Use the public URL if provided, otherwise fallback to local
+            base_url = settings.cloudflare_r2_public_url.rstrip('/')
+            image_url = f"{base_url}/uploads/{filename}"
+        else:
+            # Fallback to local storage
+            filepath = os.path.join(STORAGE_DIR, filename)
+            with open(filepath, "wb") as f:
+                f.write(contents)
+            image_url = f"/storage/uploads/{filename}"
+            
         return pil_image, image_url, prediction_id
