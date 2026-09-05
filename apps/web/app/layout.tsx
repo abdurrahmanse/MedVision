@@ -25,10 +25,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <QueryProvider>
             <Navbar />
-            <main className="flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 relative z-10">
-              <DisclaimerBanner />
+            <main className="flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 relative z-10 flex flex-col justify-center">
               {children}
             </main>
+            <div className="w-full max-w-5xl mx-auto px-4 sm:px-0 relative z-10 pb-10">
+              <DisclaimerBanner />
+            </div>
             <Footer />
           </QueryProvider>
         </ThemeProvider>
