@@ -9,23 +9,40 @@ interface PredictionDetailProps {
   params: { id: string }
 }
 
-async function getPrediction(id: string): Promise<PredictionResult | null> {
+async function getPrediction(id: string): Promise<PredictionResult | { error: string, status: number }> {
   const baseUrl = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000"
   
-  const res = await fetch(`${baseUrl}/api/v1/predictions/${id}`, {
-    cache: 'no-store'
-  })
-  
-  if (!res.ok) {
-    if (res.status === 404) return null
-    throw new Error("Failed to fetch prediction")
+  try {
+    const res = await fetch(`${baseUrl}/api/v1/predictions/${id}`, {
+      cache: 'no-store'
+    })
+    
+    if (!res.ok) {
+      console.error(`Fetch failed: ${res.status} ${res.statusText}`)
+      const text = await res.text()
+      console.error(`Response body: ${text}`)
+      return { error: `HTTP ${res.status}: ${text}`, status: res.status }
+    }
+    
+    return await res.json() as PredictionResult
+  } catch (e: any) {
+    console.error("Fetch Exception:", e)
+    return { error: e.message, status: 500 }
   }
-  
-  return res.json() as Promise<PredictionResult>
 }
 
 export default async function PredictionDetailPage({ params }: PredictionDetailProps) {
   const prediction = await getPrediction(params.id)
+  
+  if (prediction && 'error' in prediction) {
+    return (
+      <div className="max-w-7xl mx-auto py-8 text-center text-red-500 font-bold text-2xl mt-20">
+        <h2>Diagnostic Error Page</h2>
+        <p>Tried to fetch: {process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000"}/api/v1/predictions/{params.id}</p>
+        <p>Error details: {prediction.error}</p>
+      </div>
+    )
+  }
   
   if (!prediction) {
     notFound()
@@ -37,8 +54,13 @@ export default async function PredictionDetailPage({ params }: PredictionDetailP
   return (
     <div className="max-w-7xl mx-auto py-8 sm:py-12 w-full px-4 sm:px-0">
       
-      <Link href="/history" className="inline-flex items-center gap-2 mb-8 text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-white transition-colors font-bold group">
-        <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
+      <Link 
+        href="/history" 
+        className="inline-flex items-center gap-3 mb-8 px-5 py-2.5 bg-white dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-700 hover:border-black dark:hover:border-white rounded-xl shadow-sm hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white transition-all font-bold group w-fit"
+      >
+        <div className="bg-gray-100 dark:bg-gray-800 p-1.5 rounded-lg group-hover:bg-black dark:group-hover:bg-white transition-colors">
+          <ArrowLeft className="w-4 h-4 text-gray-500 dark:text-gray-400 group-hover:text-white dark:group-hover:text-black transition-colors" />
+        </div>
         Back to History
       </Link>
 
