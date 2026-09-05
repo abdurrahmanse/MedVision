@@ -2,8 +2,8 @@ name: Keep API Awake
 
 on:
   schedule:
-    # Runs every 10 minutes to prevent the Render free tier from sleeping
-    - cron: '*/10 * * * *'
+    # Runs every 5 minutes to prevent Render AND Neon Postgres from sleeping
+    - cron: '*/5 * * * *'
   workflow_dispatch: # Allows you to run it manually from the Actions tab
 
 jobs:
