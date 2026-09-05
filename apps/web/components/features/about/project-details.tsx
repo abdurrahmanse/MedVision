@@ -1,4 +1,4 @@
-import { Settings, Database } from "lucide-react"
+import { Database, Settings } from "lucide-react"
 import { GlassCard } from "components/ui/glass-card"
 import { MotionReveal } from "components/ui/motion-reveal"
 

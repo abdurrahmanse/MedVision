@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { AlertTriangle, RefreshCcw, Home } from "lucide-react";
+import { AlertTriangle, Home, RefreshCcw } from "lucide-react";
 import { MotionReveal } from "components/ui/motion-reveal";
 import { NeoButton } from "components/ui/neo-button";
 import Link from "next/link";

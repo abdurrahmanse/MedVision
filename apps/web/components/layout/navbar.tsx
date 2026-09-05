@@ -1,17 +1,18 @@
 "use client";
 
-import Link from "next/link";
-import { useState, useEffect } from "react";
-import { usePathname } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
-import { Stethoscope, Upload, History, Info, Menu, X, ChevronRight } from "lucide-react";
-import { ThemeToggle } from "../theme-toggle";
+import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "lib/utils";
+import { ChevronRight, History, Info, Menu, MessageSquare, Stethoscope, Upload, X } from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+import { ThemeToggle } from "../theme-toggle";
 
 const NAV_ITEMS = [
   { name: "Predict", href: "/predict", icon: Upload },
   { name: "History", href: "/history", icon: History },
   { name: "About", href: "/about", icon: Info },
+  { name: "Contact", href: "/contact", icon: MessageSquare },
 ];
 
 export function Navbar() {

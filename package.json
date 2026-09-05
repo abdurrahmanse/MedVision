@@ -11,10 +11,10 @@
     "kill-ports": "npx kill-port 3000 3001 8000"
   },
   "devDependencies": {
+    "kill-port": "^2.0.1",
     "prettier": "^3.7.4",
     "turbo": "^2.10.11",
-    "typescript": "7.0.2",
-    "kill-port": "^2.0.1"
+    "typescript": "^5.9.3"
   },
   "packageManager": "pnpm@9.0.0",
   "engines": {

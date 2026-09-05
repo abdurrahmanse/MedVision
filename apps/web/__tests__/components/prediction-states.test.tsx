@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { PredictionResult } from 'components/features/predict/prediction-result';
 import { ErrorAlert } from 'components/ui/error-alert';
-import { LoadingState, EmptyState } from 'components/features/history/history-states';
+import { EmptyState, LoadingState } from 'components/features/history/history-states';
 
 describe('Prediction States', () => {
   it('renders loading state for history correctly', () => {

@@ -1,4 +1,4 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getPredictions, uploadPrediction } from "lib/api/predictions";
 import { toast } from "sonner";
 

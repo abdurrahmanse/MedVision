@@ -1,4 +1,4 @@
-import { ShieldAlert, Image as ImageIcon, Scale, Clock, FileWarning } from "lucide-react";
+import { Clock, FileWarning, Image as ImageIcon, Scale, ShieldAlert } from "lucide-react";
 
 export function PredictRules() {
   const rules = [

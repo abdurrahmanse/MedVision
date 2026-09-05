@@ -1,12 +1,12 @@
-import { notFound } from "next/navigation"
-import { ArrowLeft, Clock, ActivitySquare, ShieldCheck, Cpu, Database, Stethoscope, CheckCircle2, AlertTriangle, Fingerprint } from "lucide-react"
-import Link from "next/link"
-import { NeoBadge } from "components/ui/neo-badge"
-import { PageTitle } from "components/ui/page-title"
-import { PredictionResult } from "types"
+import { NeoBadge } from "components/ui/neo-badge";
+import { PageTitle } from "components/ui/page-title";
+import { ActivitySquare, ArrowLeft, Clock, Cpu, Fingerprint, ShieldCheck, Stethoscope } from "lucide-react";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { PredictionResult } from "types";
 
 interface PredictionDetailProps {
-  params: { id: string }
+  params: Promise<{ id: string }>
 }
 
 async function getPrediction(id: string): Promise<PredictionResult | { error: string, status: number }> {
@@ -32,13 +32,14 @@ async function getPrediction(id: string): Promise<PredictionResult | { error: st
 }
 
 export default async function PredictionDetailPage({ params }: PredictionDetailProps) {
-  const prediction = await getPrediction(params.id)
+  const resolvedParams = await params
+  const prediction = await getPrediction(resolvedParams.id)
   
   if (prediction && 'error' in prediction) {
     return (
       <div className="max-w-7xl mx-auto py-8 text-center text-red-500 font-bold text-2xl mt-20">
         <h2>Diagnostic Error Page</h2>
-        <p>Tried to fetch: {process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000"}/api/v1/predictions/{params.id}</p>
+        <p>Tried to fetch: {process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000"}/api/v1/predictions/{resolvedParams.id}</p>
         <p>Error details: {prediction.error}</p>
       </div>
     )

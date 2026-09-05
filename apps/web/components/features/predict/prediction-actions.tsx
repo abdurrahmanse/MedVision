@@ -1,4 +1,4 @@
-import { Trash2, Loader2, ShieldAlert } from "lucide-react"
+import { Loader2, ShieldAlert, Trash2 } from "lucide-react"
 
 interface PredictionActionsProps {
   previewUrl: string

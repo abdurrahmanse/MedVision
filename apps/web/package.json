@@ -119,7 +119,7 @@
     "storybook": "^10.6.0",
     "tailwindcss": "^4.3.3",
     "typed-query-selector": "^2.12.2",
-    "typescript": "^7.0.2",
+    "typescript": "^5.9.3",
     "typescript-eslint": "^8.69.0",
     "vitest": "^5.0.0",
     "webpack": "5.110.3"

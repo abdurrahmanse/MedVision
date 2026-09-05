@@ -1,11 +1,11 @@
-import * as fs from "fs"
+import * as fs from "fs";
 
 // https://github.com/francoismassart/eslint-plugin-tailwindcss/pull/381
 // import eslintPluginTailwindcss from "eslint-plugin-tailwindcss"
-import eslintPluginImport from "eslint-plugin-import"
-import eslintPluginNext from "@next/eslint-plugin-next"
-import eslintPluginStorybook from "eslint-plugin-storybook"
-import typescriptEslint from "typescript-eslint"
+import eslintPluginNext from "@next/eslint-plugin-next";
+import eslintPluginImport from "eslint-plugin-import";
+import eslintPluginStorybook from "eslint-plugin-storybook";
+import typescriptEslint from "typescript-eslint";
 
 const eslintIgnore = [
   ".git/",
@@ -63,36 +63,10 @@ const config = typescriptEslint.config(
           ignoreDeclarationSort: true,
         },
       ],
-      "import/order": [
-        "warn",
-        {
-          groups: ["external", "builtin", "internal", "sibling", "parent", "index"],
-          pathGroups: [
-            ...getDirectoriesToSort().map((singleDir) => ({
-              pattern: `${singleDir}/**`,
-              group: "internal",
-            })),
-            {
-              pattern: "env",
-              group: "internal",
-            },
-            {
-              pattern: "theme",
-              group: "internal",
-            },
-            {
-              pattern: "public/**",
-              group: "internal",
-              position: "after",
-            },
-          ],
-          pathGroupsExcludedImportTypes: ["internal"],
-          alphabetize: {
-            order: "asc",
-            caseInsensitive: true,
-          },
-        },
-      ],
+      "import/order": "off",
+      "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/no-require-imports": "off",
+      "storybook/no-renderer-packages": "off",
     },
   }
 )

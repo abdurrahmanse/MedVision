@@ -1,4 +1,4 @@
-import { UploadCloud, ImagePlus } from "lucide-react"
+import { ImagePlus, UploadCloud } from "lucide-react"
 
 interface UploadZoneProps {
   onFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void

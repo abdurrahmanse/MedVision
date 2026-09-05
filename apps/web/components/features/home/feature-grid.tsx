@@ -1,4 +1,4 @@
-import { UploadCloud, History, BrainCircuit } from "lucide-react"
+import { BrainCircuit, History, UploadCloud } from "lucide-react"
 import { MotionReveal } from "components/ui/motion-reveal"
 import { FeatureCard } from "./feature-card"
 

@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useCallback, useState } from "react";
 import { usePredictMutation } from "./use-predictions";
 
 export function usePredictForm() {

@@ -3,7 +3,7 @@
 import { usePredictions } from "hooks/use-predictions";
 import { History } from "lucide-react";
 import { HistoryTable } from "components/features/history/history-table";
-import { LoadingState, ErrorState, EmptyState } from "components/features/history/history-states";
+import { EmptyState, ErrorState, LoadingState } from "components/features/history/history-states";
 import { MotionReveal } from "components/ui/motion-reveal";
 import { PageTitle } from "components/ui/page-title";
 

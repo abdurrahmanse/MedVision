@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { UploadZone } from 'components/features/predict/upload-zone';
 import { vi } from 'vitest';
 
