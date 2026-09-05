@@ -54,6 +54,20 @@ services:
       cache:
         condition: service_healthy
 
+  # ─── Next.js Frontend ──────────────────────────────────────────────────────
+  web:
+    build:
+      context: ./apps/web
+      dockerfile: Dockerfile
+    container_name: medvision_web
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://api:8000
+    depends_on:
+      - api
+
   # ─── ML / Data Science Environment ────────────────────────────────────────
   ml:
     build:
@@ -74,17 +88,3 @@ services:
 volumes:
   postgres_data:
   redis_data:
-
-  # ─── Next.js Frontend ──────────────────────────────────────────────────────
-  web:
-    build:
-      context: ./apps/web
-      dockerfile: Dockerfile
-    container_name: medvision_web
-    restart: unless-stopped
-    ports:
-      - "3000:3000"
-    environment:
-      - NEXT_PUBLIC_API_URL=http://api:8000
-    depends_on:
-      - api

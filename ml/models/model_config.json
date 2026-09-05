@@ -1,6 +1,6 @@
 {
     "model_name": "tiny-cnn",
-    "version": "1.0.0",
+    "version": "v1.0.0",
     "input_size": [
         1,
         28,
