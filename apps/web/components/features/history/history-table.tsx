@@ -18,6 +18,7 @@ import {
     Search,
     Target
 } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 import { PredictionResult } from "types";
 
@@ -33,6 +34,7 @@ type SortField = "date" | "confidence";
 type SortOrder = "asc" | "desc";
 
 export function HistoryTable({ predictions }: HistoryTableProps) {
+  const router = useRouter();
   const [currentPage, setCurrentPage] = useState(1);
   const [viewMode, setViewMode] = useState<ViewMode>("table");
   const [searchQuery, setSearchQuery] = useState("");
@@ -216,10 +218,11 @@ export function HistoryTable({ predictions }: HistoryTableProps) {
                         <motion.tr 
                           key={p.id}
                           layout
+                          onClick={() => router.push(`/history/${p.id}`)}
                           initial={{ opacity: 0, y: 10 }}
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, scale: 0.95 }}
-                          className="hover:bg-white/80 dark:hover:bg-gray-800/80 transition-colors group cursor-default"
+                          className="hover:bg-white/80 dark:hover:bg-gray-800/80 transition-colors group cursor-pointer"
                         >
                           <td className="px-4 sm:px-8 py-4 sm:py-6 whitespace-nowrap">
                             {p.image_url ? (
@@ -269,10 +272,11 @@ export function HistoryTable({ predictions }: HistoryTableProps) {
                   <motion.div
                     key={p.id}
                     layout
+                    onClick={() => router.push(`/history/${p.id}`)}
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.9 }}
-                    className="group relative bg-white/60 dark:bg-gray-900/60 backdrop-blur-lg rounded-[24px] border-2 border-transparent hover:border-blue-500/50 p-4 shadow-xl hover:shadow-blue-500/20 transition-all flex flex-col items-center text-center overflow-hidden"
+                    className="group cursor-pointer relative bg-white/60 dark:bg-gray-900/60 backdrop-blur-lg rounded-[24px] border-2 border-transparent hover:border-blue-500/50 p-4 shadow-xl hover:shadow-blue-500/20 transition-all flex flex-col items-center text-center overflow-hidden"
                   >
                     {/* Background glow on hover */}
                     <div className="absolute inset-0 bg-gradient-to-br from-blue-500/0 to-blue-500/0 group-hover:from-blue-500/10 group-hover:to-purple-500/10 transition-colors z-0" />
