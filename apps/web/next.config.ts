@@ -5,7 +5,8 @@ import { env } from "./env.mjs"
 
 const config: NextConfig = {
   reactStrictMode: true,
-  output: "standalone",
+  // Disable standalone mode on Vercel to prevent .nft.json tracing errors
+  output: process.env.VERCEL ? undefined : "standalone",
   logging: {
     fetches: {
       fullUrl: true,
