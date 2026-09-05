@@ -3,7 +3,7 @@ services:
     name: medvision-api
     env: docker
     rootDir: apps/api
-    dockerfilePath: apps/api/Dockerfile
+    dockerfilePath: ./Dockerfile
     plan: free
     healthCheckPath: /api/v1/health
     envVars:
