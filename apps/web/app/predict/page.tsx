@@ -4,6 +4,7 @@ import { FileSearch } from "lucide-react";
 import { UploadZone } from "components/features/predict/upload-zone";
 import { PredictionActions } from "components/features/predict/prediction-actions";
 import { PredictionResult } from "components/features/predict/prediction-result";
+import { PredictRules } from "components/features/predict/predict-rules";
 import { MotionReveal } from "components/ui/motion-reveal";
 import { PageTitle } from "components/ui/page-title";
 import { ErrorAlert } from "components/ui/error-alert";
@@ -28,20 +29,29 @@ export default function PredictPage() {
       
       <MotionReveal delay={0.2}>
         <div className="backdrop-blur-xl bg-white/50 dark:bg-gray-900/50 p-6 sm:p-8 lg:p-10 rounded-2xl sm:rounded-[32px] border border-white/40 dark:border-gray-700/50 shadow-2xl shadow-blue-900/10 transition-colors">
-          {!preview ? (
-            <UploadZone onFileChange={handleFileChange} />
-          ) : (
-            <PredictionActions 
-              previewUrl={preview} 
-              isPending={mutation.isPending} 
-              onClear={handleClear} 
-              onPredict={handlePredict} 
-            />
-          )}
+          
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="lg:col-span-2 flex flex-col justify-center">
+              {!preview ? (
+                <UploadZone onFileChange={handleFileChange} />
+              ) : (
+                <PredictionActions 
+                  previewUrl={preview} 
+                  isPending={mutation.isPending} 
+                  onClear={handleClear} 
+                  onPredict={handlePredict} 
+                />
+              )}
 
-          {mutation.isError && <ErrorAlert title="Prediction Failed" message={mutation.error.message} />}
-
-          {mutation.isSuccess && <PredictionResult result={mutation.data} />}
+              {mutation.isError && <div className="mt-6"><ErrorAlert title="Prediction Failed" message={mutation.error.message} /></div>}
+              {mutation.isSuccess && <div className="mt-6"><PredictionResult result={mutation.data} /></div>}
+            </div>
+            
+            <div className="lg:col-span-1">
+              <PredictRules />
+            </div>
+          </div>
+          
         </div>
       </MotionReveal>
     </div>
