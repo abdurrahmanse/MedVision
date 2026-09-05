@@ -1,14 +1,25 @@
 "use client";
 
-import { useState, useMemo } from "react"
-import { 
-  Image as ImageIcon, ActivitySquare, Target, Calendar, Cpu, 
-  ChevronLeft, ChevronRight, Search, Filter, LayoutGrid, List, ArrowDownUp
-} from "lucide-react"
-import { NeoBadge } from "components/ui/neo-badge"
-import { PredictionResult } from "types"
-import { motion, AnimatePresence } from "framer-motion"
-import { cn } from "lib/utils"
+import { NeoBadge } from "components/ui/neo-badge";
+import { AnimatePresence, motion } from "framer-motion";
+import { cn } from "lib/utils";
+import {
+    ActivitySquare,
+    AlertTriangle,
+    ArrowDownUp,
+    Calendar,
+    CheckCircle2,
+    ChevronLeft, ChevronRight,
+    Cpu,
+    Filter,
+    Image as ImageIcon,
+    Layers,
+    LayoutGrid, List,
+    Search,
+    Target
+} from "lucide-react";
+import { useMemo, useState } from "react";
+import { PredictionResult } from "types";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"
 
@@ -108,12 +119,15 @@ export function HistoryTable({ predictions }: HistoryTableProps) {
                 key={c}
                 onClick={() => { setFilterClass(c); setCurrentPage(1); }}
                 className={cn(
-                  "px-3 py-1.5 text-xs sm:text-sm font-bold rounded-lg transition-all",
+                  "px-3 py-1.5 text-xs sm:text-sm font-bold rounded-lg transition-all flex items-center gap-1.5",
                   filterClass === c 
                     ? "bg-white dark:bg-gray-700 text-blue-600 shadow-sm" 
                     : "text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
                 )}
               >
+                {c === "All" && <Layers className="w-3.5 h-3.5" />}
+                {c === "Normal" && <CheckCircle2 className="w-3.5 h-3.5" />}
+                {c === "Pneumonia" && <AlertTriangle className="w-3.5 h-3.5" />}
                 {c}
               </button>
             ))}
