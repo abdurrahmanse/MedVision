@@ -1,10 +1,9 @@
 import { Metadata } from "next";
 import { ReactNode } from "react";
 
-export const metadata: Metadata = {
-  title: "About the Project",
-  description: "Learn about the MedVision architecture, the MedMNIST dataset, and the technical implementation of this educational AI tool.",
-};
+import { aboutMetadata } from "config/metadata";
+
+export const metadata: Metadata = aboutMetadata;
 
 export default function AboutLayout({ children }: { children: ReactNode }) {
   return <>{children}</>;

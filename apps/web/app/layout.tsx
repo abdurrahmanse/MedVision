@@ -22,33 +22,9 @@ export const viewport: Viewport = {
   maximumScale: 1,
 }
 
-export const metadata: Metadata = {
-  title: {
-    default: "MedVision | Pneumonia AI",
-    template: "%s | MedVision"
-  },
-  description: "An educational Convolutional Neural Network (CNN) platform demonstrating end-to-end pneumonia detection from chest X-rays.",
-  keywords: ["Pneumonia", "AI", "Machine Learning", "Computer Vision", "Medical Imaging", "PyTorch", "Next.js"],
-  authors: [{ name: "MedVision Team" }],
-  creator: "MedVision",
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: "https://medvision.dev",
-    title: "MedVision | Pneumonia AI",
-    description: "Educational CNN computer vision model for pneumonia detection.",
-    siteName: "MedVision",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "MedVision | Pneumonia AI",
-    description: "Educational CNN computer vision model for pneumonia detection.",
-  },
-  robots: {
-    index: true,
-    follow: true,
-  }
-};
+import { siteMetadata } from "config/metadata";
+
+export const metadata: Metadata = siteMetadata;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
