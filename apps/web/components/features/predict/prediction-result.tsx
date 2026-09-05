@@ -23,7 +23,7 @@ export function PredictionResult({ result }: PredictionResultProps) {
           </div>
           <div>
             <p className="text-base sm:text-lg font-bold opacity-80 mb-1 sm:mb-2">Model Version</p>
-            <p className="font-black text-2xl sm:text-3xl">{result.model_version}</p>
+            <p className="font-black text-xl sm:text-2xl">{result.model_version}</p>
           </div>
         </div>
       </div>

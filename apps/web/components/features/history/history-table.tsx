@@ -1,4 +1,7 @@
-import { Image as ImageIcon, ActivitySquare, Target, Calendar } from "lucide-react"
+"use client";
+
+import { useState } from "react"
+import { Image as ImageIcon, ActivitySquare, Target, Calendar, Cpu, ChevronLeft, ChevronRight } from "lucide-react"
 import { NeoBadge } from "components/ui/neo-badge"
 import { PredictionResult } from "types"
 
@@ -9,8 +12,15 @@ interface HistoryTableProps {
 }
 
 export function HistoryTable({ predictions }: HistoryTableProps) {
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
+  const totalPages = Math.ceil(predictions.length / itemsPerPage);
+  
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const visiblePredictions = predictions.slice(startIndex, startIndex + itemsPerPage);
+
   return (
-    <div className="backdrop-blur-xl bg-white/60 dark:bg-gray-900/60 rounded-2xl sm:rounded-[32px] border border-white/40 dark:border-gray-700/50 shadow-2xl overflow-hidden">
+    <div className="backdrop-blur-xl bg-white/60 dark:bg-gray-900/60 rounded-2xl sm:rounded-[32px] border border-white/40 dark:border-gray-700/50 shadow-2xl overflow-hidden flex flex-col">
       <div className="overflow-x-auto">
         <table className="min-w-full divide-y divide-gray-200/50 dark:divide-gray-700/50">
           <thead className="bg-gray-100/50 dark:bg-gray-800/50 backdrop-blur-md">
@@ -30,13 +40,18 @@ export function HistoryTable({ predictions }: HistoryTableProps) {
               </th>
               <th className="px-4 sm:px-8 py-4 sm:py-6 text-left text-xs sm:text-sm font-black text-gray-800 dark:text-gray-200 uppercase tracking-widest whitespace-nowrap">
                 <div className="flex items-center gap-2">
+                  <Cpu className="w-4 h-4 sm:w-5 sm:h-5 hidden sm:block" /> Version
+                </div>
+              </th>
+              <th className="px-4 sm:px-8 py-4 sm:py-6 text-left text-xs sm:text-sm font-black text-gray-800 dark:text-gray-200 uppercase tracking-widest whitespace-nowrap">
+                <div className="flex items-center gap-2">
                   <Calendar className="w-4 h-4 sm:w-5 sm:h-5 hidden sm:block" /> Date
                 </div>
               </th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200/50 dark:divide-gray-700/50">
-            {predictions.map((p) => (
+            {visiblePredictions.map((p) => (
               <tr key={p.id} className="hover:bg-white/80 dark:hover:bg-gray-800/80 transition-colors group cursor-default">
                 <td className="px-4 sm:px-8 py-4 sm:py-6 whitespace-nowrap">
                   {p.image_url ? (
@@ -57,10 +72,13 @@ export function HistoryTable({ predictions }: HistoryTableProps) {
                     {p.predicted_class}
                   </NeoBadge>
                 </td>
-                <td className="px-4 sm:px-8 py-4 sm:py-6 whitespace-nowrap text-lg sm:text-xl font-black text-gray-900 dark:text-white">
+                <td className="px-4 sm:px-8 py-4 sm:py-6 whitespace-nowrap text-sm sm:text-base font-black text-gray-900 dark:text-white">
                   {(p.confidence * 100).toFixed(1)}%
                 </td>
-                <td className="px-4 sm:px-8 py-4 sm:py-6 whitespace-nowrap text-base sm:text-lg text-gray-700 dark:text-gray-300 font-bold">
+                <td className="px-4 sm:px-8 py-4 sm:py-6 whitespace-nowrap text-sm sm:text-base font-bold text-gray-600 dark:text-gray-400">
+                  {p.model_version}
+                </td>
+                <td className="px-4 sm:px-8 py-4 sm:py-6 whitespace-nowrap text-sm sm:text-base text-gray-700 dark:text-gray-300 font-bold">
                   {new Date(p.created_at).toLocaleString(undefined, {
                     year: 'numeric', month: 'short', day: 'numeric',
                     hour: '2-digit', minute: '2-digit'
@@ -71,6 +89,30 @@ export function HistoryTable({ predictions }: HistoryTableProps) {
           </tbody>
         </table>
       </div>
+
+      {totalPages > 1 && (
+        <div className="bg-gray-50/80 dark:bg-gray-800/80 backdrop-blur-md px-6 py-4 border-t border-gray-200/50 dark:border-gray-700/50 flex items-center justify-between">
+          <p className="text-sm font-bold text-gray-600 dark:text-gray-400">
+            Showing {startIndex + 1} to {Math.min(startIndex + itemsPerPage, predictions.length)} of {predictions.length}
+          </p>
+          <div className="flex gap-2">
+            <button 
+              onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+              disabled={currentPage === 1}
+              className="p-2 rounded-lg border-2 border-black dark:border-white shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)] disabled:opacity-50 disabled:cursor-not-allowed hover:translate-y-[2px] hover:translate-x-[2px] hover:shadow-none transition-all bg-white dark:bg-gray-700 text-black dark:text-white"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+            <button 
+              onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+              disabled={currentPage === totalPages}
+              className="p-2 rounded-lg border-2 border-black dark:border-white shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)] disabled:opacity-50 disabled:cursor-not-allowed hover:translate-y-[2px] hover:translate-x-[2px] hover:shadow-none transition-all bg-white dark:bg-gray-700 text-black dark:text-white"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
