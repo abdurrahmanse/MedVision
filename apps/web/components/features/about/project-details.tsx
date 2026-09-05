@@ -4,9 +4,9 @@ import { GlassCard } from "components/ui/glass-card"
 export function ProjectDetails() {
   return (
     <GlassCard className="mb-8 sm:mb-12 hover:-translate-y-2 transition-transform duration-500 p-6 sm:p-8 lg:p-10">
-      <h2 className="text-2xl sm:text-3xl font-black mb-4 sm:mb-6 flex items-center gap-2 sm:gap-3 text-gray-900 dark:text-white tracking-tight">
-        <Settings className="w-6 h-6 sm:w-8 sm:h-8 text-blue-600 dark:text-blue-400" />
-        The Project
+      <h2 className="text-2xl sm:text-3xl font-black mb-4 sm:mb-6 flex items-center gap-2 sm:gap-3 tracking-tight">
+        <Settings className="w-6 h-6 sm:w-8 sm:h-8 text-blue-600 dark:text-blue-400 flex-shrink-0" />
+        <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-900 via-blue-700 to-slate-900 dark:from-slate-100 dark:via-blue-400 dark:to-slate-100">The Project</span>
       </h2>
       <p className="text-gray-800 dark:text-gray-200 mb-6 font-bold text-lg sm:text-xl leading-relaxed">
         MedVision is an end-to-end Machine Learning project built as an educational demonstration. 
