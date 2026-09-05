@@ -1,4 +1,4 @@
-# MedVision Final Limitations Report
+# MedVision Final Limitations Report:
 
 ## Architectural Limitations
 1. **SQLite / In-Memory Defaults**: The API testing uses `aiosqlite` for simplicity, but production relies on PostgreSQL. In highly concurrent scenarios, Redis caching alleviates load, but proper read replicas are missing.
