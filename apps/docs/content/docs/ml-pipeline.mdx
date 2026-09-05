@@ -1,0 +1,80 @@
+---
+title: ML Pipeline
+description: The MedVision training pipeline and model architecture.
+---
+
+## Model: TinyCNN
+
+The MedVision model is a lightweight Convolutional Neural Network (CNN) designed for binary classification of chest X-rays.
+
+```python
+class TinyCNN(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.features = nn.Sequential(
+            nn.Conv2d(1, 8, kernel_size=3, padding=1),
+            nn.ReLU(),
+            nn.MaxPool2d(2, 2),
+            nn.Conv2d(8, 16, kernel_size=3, padding=1),
+            nn.ReLU(),
+            nn.MaxPool2d(2, 2),
+        )
+        self.classifier = nn.Sequential(
+            nn.Flatten(),
+            nn.Linear(16 * 7 * 7, 32),
+            nn.ReLU(),
+            nn.Linear(32, 1),
+        )
+```
+
+## Preprocessing
+
+All images undergo the following transformations before inference:
+
+1. Convert to **grayscale** (1 channel)
+2. **Resize** to `28 × 28` pixels
+3. Convert to `torch.Tensor`
+4. **Normalize**: `mean=[0.5]`, `std=[0.5]`
+
+## Reproducible Pipeline
+
+Run the complete `download → subset → validate → train → evaluate` pipeline in one command:
+
+```bash
+python ml/pipeline.py
+```
+
+This generates a fully-auditable `model_config.json` artifact:
+
+```json
+{
+  "version": "v1.1.0",
+  "reproducibility": {
+    "seed": 42,
+    "dataset_version": "1.0.0 (Kaggle)",
+    "code_version": "a1b2c3d",
+    "preprocessing": {
+      "resize": [28, 28],
+      "grayscale": true
+    },
+    "training_date": "2024-10-24T14:32:00"
+  }
+}
+```
+
+## Dataset
+
+- **Source**: Chest X-Ray Images (Pneumonia) — Kaggle / Mendeley Data
+- **Classes**: Normal, Pneumonia
+- **Split**: Train / Validation / Test
+
+<Callout type="info">
+  The model weights (`pneumonia_classifier_v1.pt`) are mounted via Docker volume from `./ml/models`.
+  They are not committed to Git to keep the repository lean.
+</Callout>
+
+## Model Versioning
+
+Version strings follow SemVer format: `v1.0.0`, `v1.1.0`.
+Every prediction record in PostgreSQL stores the `model_version` that generated it, so you can always answer:
+> *"Which model generated this prediction?"*

@@ -1,0 +1,68 @@
+---
+title: Architecture
+description: How data moves through the MedVision system.
+---
+
+## System Overview
+
+MedVision is a Turborepo monorepo containing four main workspaces:
+
+| Workspace | Technology | Port |
+|---|---|---|
+| `apps/web` | Next.js 16, TailwindCSS | 3000 |
+| `apps/api` | FastAPI, PyTorch, SQLAlchemy | 8000 |
+| `apps/docs` | Fumadocs, Next.js | 3001 |
+| `ml/` | PyTorch, Jupyter | — |
+
+## Data Flow
+
+```
+User Browser
+    │
+    │  POST /api/v1/predictions (multipart/form-data)
+    ▼
+ Next.js (apps/web)
+    │
+    │  HTTP → http://api:8000
+    ▼
+ FastAPI (apps/api)
+    │
+    ├── ImageService     → Validates type, size, saves to /storage
+    ├── PneumoniaPredictor → PyTorch TinyCNN inference
+    ├── PredictionService → Orchestrates result
+    └── PredictionRepository → Persists to PostgreSQL
+    │
+    ▼
+ PostgreSQL (predictions table)
+    │
+    ▼
+ Response → Next.js UI updates
+```
+
+## Infrastructure
+
+```
+┌─────────────────────────────────────────┐
+│              Docker Network             │
+│                                         │
+│  ┌──────────┐      ┌──────────────┐    │
+│  │  web     │─────▶│     api      │    │
+│  │ :3000    │      │    :8000     │    │
+│  └──────────┘      └──────┬───────┘    │
+│                           │             │
+│              ┌────────────┼────────┐   │
+│              ▼            ▼        ▼   │
+│         ┌────────┐  ┌────────┐  ┌───┐ │
+│         │  db    │  │ cache  │  │ ml│ │
+│         │  :5432 │  │  :6379 │  │   │ │
+│         └────────┘  └────────┘  └───┘ │
+└─────────────────────────────────────────┘
+```
+
+## Security Layers
+
+- **Rate Limiting**: 5 req/min on `POST /predictions` via SlowAPI
+- **File Validation**: MIME type, magic bytes, and size enforcement
+- **Safe Filenames**: All uploads renamed to UUIDv4 hashes
+- **CORS**: Configured via environment variable — no wildcards in production
+- **No PII**: Zero patient-identifiable data is collected or stored

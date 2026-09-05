@@ -1,0 +1,12 @@
+{
+  "title": "MedVision",
+  "pages": [
+    "index",
+    "getting-started",
+    "architecture",
+    "api",
+    "ml-pipeline",
+    "testing"
+  ]
+}
+

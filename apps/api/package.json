@@ -1,0 +1,11 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "cross-env PYTHONPATH=. uv run uvicorn app.main:app --reload --port 8000"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3"
+  }
+}

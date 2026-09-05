@@ -1,0 +1,15 @@
+{
+    "model_name": "tiny-cnn",
+    "version": "v1.0.0",
+    "input_size": [
+        1,
+        28,
+        28
+    ],
+    "task": "binary-classification",
+    "classes": [
+        "Normal",
+        "Pneumonia"
+    ],
+    "pytorch_checkpoint": "pneumonia_classifier_v1.pt"
+}

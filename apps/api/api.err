@@ -1,0 +1,100 @@
+INFO:     Started server process [429]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/Volumes/Fullstack/Github/MedVision/apps/api/app/core/database.py", line 24, in get_db
+    yield session
+  File "/Volumes/Fullstack/Github/MedVision/apps/api/.venv/lib/python3.14/site-packages/fastapi/routing.py", line 144, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "/Volumes/Fullstack/Github/MedVision/apps/api/.venv/lib/python3.14/site-packages/fastapi/routing.py", line 755, in app
+    raise validation_error
+fastapi.exceptions.RequestValidationError: 1 validation error:
+  {'type': 'missing', 'loc': ('body', 'image'), 'msg': 'Field required', 'input': None}
+
+  File "/Volumes/Fullstack/Github/MedVision/apps/api/.venv/lib/python3.14/site-packages/slowapi/extension.py", line 14, in create_prediction
+    POST /api/v1/predictions
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Volumes/Fullstack/Github/MedVision/apps/api/.venv/lib/python3.14/site-packages/uvicorn/protocols/http/h11_impl.py", line 416, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self.scope, self.receive, self.send
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Volumes/Fullstack/Github/MedVision/apps/api/.venv/lib/python3.14/site-packages/uvicorn/middleware/proxy_headers.py", line 63, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Volumes/Fullstack/Github/MedVision/apps/api/.venv/lib/python3.14/site-packages/fastapi/applications.py", line 1163, in __call__
+    await super().__call__(scope, receive, send)
+  File "/Volumes/Fullstack/Github/MedVision/apps/api/.venv/lib/python3.14/site-packages/starlette/applications.py", line 96, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Volumes/Fullstack/Github/MedVision/apps/api/.venv/lib/python3.14/site-packages/starlette/middleware/errors.py", line 186, in __call__
+    raise exc
+  File "/Volumes/Fullstack/Github/MedVision/apps/api/.venv/lib/python3.14/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "/Volumes/Fullstack/Github/MedVision/apps/api/.venv/lib/python3.14/site-packages/starlette/middleware/cors.py", line 88, in __call__
+    await self.app(scope, receive, send)
+  File "/Volumes/Fullstack/Github/MedVision/apps/api/.venv/lib/python3.14/site-packages/starlette/middleware/exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/Volumes/Fullstack/Github/MedVision/apps/api/.venv/lib/python3.14/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/Volumes/Fullstack/Github/MedVision/apps/api/.venv/lib/python3.14/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Volumes/Fullstack/Github/MedVision/apps/api/.venv/lib/python3.14/site-packages/fastapi/middleware/asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "/Volumes/Fullstack/Github/MedVision/apps/api/.venv/lib/python3.14/site-packages/starlette/routing.py", line 670, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Volumes/Fullstack/Github/MedVision/apps/api/.venv/lib/python3.14/site-packages/fastapi/routing.py", line 2734, in app
+    await route.handle(scope, receive, send)
+  File "/Volumes/Fullstack/Github/MedVision/apps/api/.venv/lib/python3.14/site-packages/fastapi/routing.py", line 1780, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "/Volumes/Fullstack/Github/MedVision/apps/api/.venv/lib/python3.14/site-packages/fastapi/routing.py", line 2789, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "/Volumes/Fullstack/Github/MedVision/apps/api/.venv/lib/python3.14/site-packages/fastapi/routing.py", line 1791, in _handle_selected
+    await route.handle(scope, receive, send)
+  File "/Volumes/Fullstack/Github/MedVision/apps/api/.venv/lib/python3.14/site-packages/fastapi/routing.py", line 1780, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "/Volumes/Fullstack/Github/MedVision/apps/api/.venv/lib/python3.14/site-packages/fastapi/routing.py", line 2789, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "/Volumes/Fullstack/Github/MedVision/apps/api/.venv/lib/python3.14/site-packages/fastapi/routing.py", line 1800, in _handle_selected
+    await original_route.handle(scope, receive, send)
+  File "/Volumes/Fullstack/Github/MedVision/apps/api/.venv/lib/python3.14/site-packages/fastapi/routing.py", line 1279, in handle
+    await app(scope, receive, send)
+  File "/Volumes/Fullstack/Github/MedVision/apps/api/.venv/lib/python3.14/site-packages/fastapi/routing.py", line 158, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/Volumes/Fullstack/Github/MedVision/apps/api/.venv/lib/python3.14/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/Volumes/Fullstack/Github/MedVision/apps/api/.venv/lib/python3.14/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Volumes/Fullstack/Github/MedVision/apps/api/.venv/lib/python3.14/site-packages/fastapi/routing.py", line 140, in app
+    async with AsyncExitStack() as request_stack:
+               ~~~~~~~~~~~~~~^^
+  File "/opt/anaconda3/lib/python3.14/contextlib.py", line 768, in __aexit__
+    raise exc
+  File "/opt/anaconda3/lib/python3.14/contextlib.py", line 751, in __aexit__
+    cb_suppress = await cb(*exc_details)
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.14/contextlib.py", line 235, in __aexit__
+    await self.gen.athrow(value)
+  File "/Volumes/Fullstack/Github/MedVision/apps/api/app/core/database.py", line 22, in get_db
+    async with AsyncSessionLocal() as session:
+               ~~~~~~~~~~~~~~~~~^^
+  File "/Volumes/Fullstack/Github/MedVision/apps/api/.venv/lib/python3.14/site-packages/sqlalchemy/ext/asyncio/session.py", line 1070, in __aexit__
+    await asyncio.shield(task)
+  File "/Volumes/Fullstack/Github/MedVision/apps/api/.venv/lib/python3.14/site-packages/sqlalchemy/ext/asyncio/session.py", line 1015, in close
+    await greenlet_spawn(self.sync_session.close)
+          ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Volumes/Fullstack/Github/MedVision/apps/api/.venv/lib/python3.14/site-packages/sqlalchemy/util/concurrency.py", line 101, in greenlet_spawn
+    _not_implemented()
+    ~~~~~~~~~~~~~~~~^^
+  File "/Volumes/Fullstack/Github/MedVision/apps/api/.venv/lib/python3.14/site-packages/sqlalchemy/util/concurrency.py", line 81, in _not_implemented
+    raise ValueError(
+    ...<4 lines>...
+    )
+ValueError: the greenlet library is required to use this function. No module named 'greenlet'

@@ -1,0 +1,52 @@
+---
+title: Testing
+description: How to run the MedVision test suites.
+---
+
+## Backend Tests (Pytest)
+
+The FastAPI backend has 12 unit and integration tests covering:
+- Health and model info endpoints
+- Valid image prediction flow
+- Invalid MIME type rejection (415)
+- Corrupted image handling
+- Undersized image rejection (422)
+- Oversized file rejection (413)
+- Prediction persistence and history retrieval
+- ML model loading and output shapes
+
+```bash
+cd apps/api
+pytest -v
+```
+
+## Frontend Tests (Vitest)
+
+The Next.js application has component-level tests covering:
+- `<UploadZone>` drag-and-drop interaction
+- `<PredictionResult>` state rendering
+- `<HistoryTable>` data display
+
+```bash
+cd apps/web
+pnpm test
+```
+
+## End-to-End Tests (Playwright)
+
+The full E2E suite tests the entire user workflow:
+1. Navigate to homepage
+2. Upload a synthetic JPEG
+3. Assert prediction result appears
+4. Assert history table is updated
+
+```bash
+cd apps/web
+pnpm run e2e
+```
+
+## Test Architecture
+
+<Callout type="info">
+  The Pytest suite uses a temporary SQLite database and mocked ML weights, so it runs perfectly on any machine **without** requiring Docker or the actual PyTorch model weights.
+</Callout>

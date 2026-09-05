@@ -1,0 +1,54 @@
+---
+title: Getting Started
+description: How to run MedVision locally in under 5 minutes.
+---
+
+## Prerequisites
+
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/) installed and running
+- [pnpm](https://pnpm.io) v9 installed globally
+- [uv](https://github.com/astral-sh/uv) installed for Python package management
+
+## Option 1: Docker Compose (Recommended)
+
+Spin up the entire stack (PostgreSQL, Redis, FastAPI, Next.js) with a single command:
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/abdurrahmanse/MedVision.git
+cd MedVision
+
+# 2. Copy the environment template
+cp .env.example .env
+# Fill in your DATABASE_URL and other secrets
+
+# 3. Run the full stack
+docker compose up --build
+```
+
+The services will be available at:
+- **Frontend**: http://localhost:3000
+- **API**: http://localhost:8000
+- **API Docs**: http://localhost:8000/docs
+
+## Option 2: Turborepo Native
+
+```bash
+# Install all JS/TS dependencies
+pnpm install
+
+# Start the Next.js frontend and FastAPI backend concurrently
+pnpm dev
+```
+
+## Environment Variables
+
+Copy `.env.example` to `.env` and fill in the required values:
+
+| Variable | Description | Required |
+|---|---|---|
+| `DATABASE_URL` | PostgreSQL connection string | ✅ |
+| `MODEL_PATH` | Path to the `.pt` weights file | ✅ |
+| `STORAGE_PATH` | Directory for uploaded images | ✅ |
+| `CORS_ORIGINS` | Comma-separated allowed origins | ✅ |
+| `MAX_UPLOAD_SIZE` | Max file size in bytes (default 5MB) | ✅ |
