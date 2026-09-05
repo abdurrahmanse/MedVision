@@ -8,7 +8,7 @@ WORKDIR /app
 COPY package.json ./
 # Check if package-lock.json or pnpm-lock.yaml exists
 COPY package.json pnpm-lock.yam[l] package-lock.jso[n] ./
-RUN if [ -f "pnpm-lock.yaml" ]; then corepack enable pnpm && pnpm i --frozen-lockfile; \
+RUN if [ -f "pnpm-lock.yaml" ]; then corepack enable pnpm && pnpm i; \
     elif [ -f "package-lock.json" ]; then npm ci; \
     else npm i; fi
 
