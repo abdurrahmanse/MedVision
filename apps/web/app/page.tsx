@@ -1,55 +1,37 @@
-import { Metadata } from "next";
+import Link from "next/link";
+import { UploadCloud, Activity, History } from "lucide-react";
 
-import { LP_GRID_ITEMS } from "lp-items";
-
-export const metadata: Metadata = {
-  title: "Fullstack Projects Boilerplate - Web",
-  twitter: {
-    card: "summary_large_image",
-  },
-  openGraph: {
-    url: "https://next-enterprise.vercel.app/",
-    images: [
-      {
-        width: 1200,
-        height: 630,
-        url: "https://raw.githubusercontent.com/Blazity/next-enterprise/main/.github/assets/project-logo.png",
-      },
-    ],
-  },
-}
-
-export default function Web() {
+export default function Home() {
   return (
-    <>
-      <section className="bg-white dark:bg-gray-900">
-        <div className="mx-auto grid max-w-(--breakpoint-xl) px-4 py-8 text-center lg:py-16">
-          <div className="mx-auto place-self-center">
-            <h1 className="mb-4 max-w-2xl text-4xl leading-none font-extrabold tracking-tight md:text-5xl xl:text-6xl dark:text-white">
-              Fullstack Projects Boilerplate - Web
-            </h1>
-            <p className="mb-6 max-w-2xl font-light text-gray-500 md:text-lg lg:mb-8 lg:text-xl dark:text-gray-400">
-             FastAPI + Next.js + TailwindCSS + TypeScript + PostgreSQL + Docker + Vercel
-            </p>
-            
-          </div>
+    <div className="flex flex-col items-center justify-center py-12 text-center">
+      <h1 className="text-5xl font-bold text-gray-900 mb-6">Pneumonia Detection AI</h1>
+      <p className="text-xl text-gray-600 max-w-2xl mb-12">
+        An educational machine learning tool designed to demonstrate how Convolutional Neural Networks (CNNs) 
+        can be used to classify chest X-rays.
+      </p>
+      
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-4xl">
+        <div className="bg-white p-6 rounded-lg shadow-sm border text-left">
+          <UploadCloud className="w-10 h-10 text-blue-500 mb-4" />
+          <h2 className="text-xl font-bold mb-2">Upload & Predict</h2>
+          <p className="text-gray-600 mb-4">Upload a chest X-ray image and get real-time inference from our CNN model.</p>
+          <Link href="/predict" className="text-blue-600 font-semibold hover:underline">Try it out &rarr;</Link>
         </div>
-      </section>
-      <section className="bg-white dark:bg-gray-900">
-        <div className="mx-auto max-w-(--breakpoint-xl) px-4 py-8 sm:py-16 lg:px-6">
-          <div className="justify-center space-y-8 md:grid md:grid-cols-2 md:gap-12 md:space-y-0 lg:grid-cols-3">
-            {LP_GRID_ITEMS.map((singleItem) => (
-              <div key={singleItem.title} className="flex flex-col items-center justify-center text-center">
-                <div className="bg-primary-100 dark:bg-primary-900 mb-4 flex size-10 items-center justify-center rounded-full p-1.5 text-blue-700 lg:size-12">
-                  {singleItem.icon}
-                </div>
-                <h3 className="mb-2 text-xl font-bold dark:text-white">{singleItem.title}</h3>
-                <p className="text-gray-500 dark:text-gray-400">{singleItem.description}</p>
-              </div>
-            ))}
-          </div>
+        
+        <div className="bg-white p-6 rounded-lg shadow-sm border text-left">
+          <History className="w-10 h-10 text-purple-500 mb-4" />
+          <h2 className="text-xl font-bold mb-2">Inference History</h2>
+          <p className="text-gray-600 mb-4">View past predictions and analyze the confidence scores of the model.</p>
+          <Link href="/history" className="text-purple-600 font-semibold hover:underline">View history &rarr;</Link>
         </div>
-      </section>
-    </>
-  )
+        
+        <div className="bg-white p-6 rounded-lg shadow-sm border text-left">
+          <Activity className="w-10 h-10 text-green-500 mb-4" />
+          <h2 className="text-xl font-bold mb-2">How it Works</h2>
+          <p className="text-gray-600 mb-4">Learn about the model architecture, training data, and the limitations.</p>
+          <Link href="/about" className="text-green-600 font-semibold hover:underline">Learn more &rarr;</Link>
+        </div>
+      </div>
+    </div>
+  );
 }

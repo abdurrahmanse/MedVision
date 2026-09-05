@@ -22,7 +22,8 @@
     "e2e:ui": "playwright test --ui",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "postinstall": "npx patch-package -y",
-    "coupling-graph": "npx madge --extensions js,jsx,ts,tsx,css,md,mdx ./ --exclude '.next|tailwind.config.js|reset.d.ts|prettier.config.js|postcss.config.js|playwright.config.ts|next.config.js|next-env.d.ts|instrumentation.ts|e2e/|README.md|.storybook/|.eslintrc.js' --image graph.svg"
+    "coupling-graph": "npx madge --extensions js,jsx,ts,tsx,css,md,mdx ./ --exclude '.next|tailwind.config.js|reset.d.ts|prettier.config.js|postcss.config.js|playwright.config.ts|next.config.js|next-env.d.ts|instrumentation.ts|e2e/|README.md|.storybook/|.eslintrc.js' --image graph.svg",
+    "predev": "npx kill-port 3000 3001 || true"
   },
   "dependencies": {
     "@next/bundle-analyzer": "^16.3.4",
@@ -48,9 +49,11 @@
     "@semantic-release/npm": "^13.1.5",
     "@semantic-release/release-notes-generator": "^14.1.1",
     "@t3-oss/env-nextjs": "^0.13.11",
+    "@tanstack/react-query": "^5.102.8",
     "@vercel/otel": "^2.1.3",
     "class-variance-authority": "^0.7.1",
     "lodash": "^4.18.1",
+    "lucide-react": "^1.41.0",
     "next": "16.3.4",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
@@ -121,4 +124,3 @@
   },
   "packageManager": "pnpm@10.0.0"
 }
-
