@@ -1,7 +1,7 @@
 services:
   # ─── PostgreSQL Database ───────────────────────────────────────────────────
   db:
-    image: postgres:16-alpine
+    image: public.ecr.aws/docker/library/postgres:16-alpine
     container_name: medvision_db
     restart: unless-stopped
     environment:
@@ -13,14 +13,14 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres}"]
       interval: 10s
       timeout: 5s
       retries: 5
 
   # ─── Redis Cache ───────────────────────────────────────────────────────────
   cache:
-    image: redis:7-alpine
+    image: public.ecr.aws/docker/library/redis:7-alpine
     container_name: medvision_cache
     restart: unless-stopped
     ports:
