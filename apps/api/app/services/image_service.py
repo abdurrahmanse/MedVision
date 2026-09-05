@@ -1,10 +1,11 @@
 import os
 import uuid
 from io import BytesIO
+
+from app.core.config import get_settings
+from app.core.errors import APIError
 from fastapi import UploadFile
 from PIL import Image
-from app.core.errors import APIError
-from app.core.config import get_settings
 
 settings = get_settings()
 
@@ -59,8 +60,9 @@ class ImageService:
         filename = f"{prediction_id}{ext}"
         
         if settings.cloudflare_r2_bucket_name and settings.cloudflare_r2_endpoint_url:
-            import boto3
             import asyncio
+
+            import boto3
             
             s3_client = boto3.client(
                 's3',
