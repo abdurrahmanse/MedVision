@@ -1,0 +1,30 @@
+{
+    "format": "grayscale",
+    "image_size": [
+        28,
+        28
+    ],
+    "pipeline": [
+        {
+            "step": "resize",
+            "params": {
+                "height": 28,
+                "width": 28
+            }
+        },
+        {
+            "step": "to_tensor"
+        },
+        {
+            "step": "normalize",
+            "params": {
+                "mean": [
+                    0.5
+                ],
+                "std": [
+                    0.5
+                ]
+            }
+        }
+    ]
+}
