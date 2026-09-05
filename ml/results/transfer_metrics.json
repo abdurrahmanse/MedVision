@@ -1,0 +1,13 @@
+{
+    "model_name": "ResNet18_TransferLearning",
+    "hyperparameters": {
+        "epochs": 10,
+        "batch_size": 16,
+        "lr": 0.001,
+        "frozen_base": true
+    },
+    "train_metric": 0.8857142857142857,
+    "validation_metric": 0.6,
+    "runtime_seconds": 21.26,
+    "seed": 42
+}
