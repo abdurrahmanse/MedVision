@@ -13,90 +13,92 @@ export default function HistoryPage() {
   });
 
   return (
-    <div className="max-w-5xl mx-auto py-8 w-full">
-      <h1 className="text-4xl font-extrabold mb-8 flex items-center gap-3 text-gray-900 dark:text-gray-100 transition-colors">
-        <History className="w-10 h-10 text-purple-600 dark:text-purple-400" />
-        Prediction History
+    <div className="max-w-5xl mx-auto py-12 w-full">
+      <h1 className="text-6xl font-black mb-10 flex items-center gap-4 text-gray-900 dark:text-gray-100 tracking-tighter">
+        <div className="p-3 bg-purple-500 rounded-2xl shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]">
+          <History className="w-12 h-12 text-white" />
+        </div>
+        Prediction History.
       </h1>
       
       {isLoading && (
-        <div className="flex flex-col items-center justify-center py-24 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm transition-colors">
-          <Loader2 className="w-12 h-12 animate-spin text-purple-500 dark:text-purple-400 mb-4" />
-          <p className="text-gray-500 dark:text-gray-400 font-medium">Loading history records...</p>
+        <div className="flex flex-col items-center justify-center py-32 backdrop-blur-xl bg-white/50 dark:bg-gray-900/50 rounded-[32px] border border-white/40 dark:border-gray-700/50 shadow-2xl">
+          <Loader2 className="w-16 h-16 animate-spin text-purple-500 mb-6" />
+          <p className="text-gray-700 dark:text-gray-300 font-bold text-xl">Loading history records...</p>
         </div>
       )}
 
       {isError && (
-        <div className="p-6 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800/50 text-red-800 dark:text-red-400 rounded-xl flex items-center gap-4 shadow-sm transition-colors">
-          <AlertTriangle className="w-8 h-8 flex-shrink-0 text-red-600 dark:text-red-400" />
+        <div className="p-8 bg-red-400 border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] text-black rounded-2xl flex items-center gap-6">
+          <AlertTriangle className="w-10 h-10 flex-shrink-0" />
           <div>
-            <h4 className="font-bold text-lg">Failed to load history</h4>
-            <p>{error.message}</p>
+            <h4 className="font-black text-2xl mb-1">Failed to load history</h4>
+            <p className="font-bold text-lg">{error.message}</p>
           </div>
         </div>
       )}
 
       {predictions && predictions.length === 0 && (
-        <div className="text-center py-24 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm flex flex-col items-center transition-colors">
-          <SearchX className="w-16 h-16 text-gray-300 dark:text-gray-600 mb-4" />
-          <h3 className="text-xl font-bold text-gray-700 dark:text-gray-300 mb-2">No records found</h3>
-          <p className="text-gray-500 dark:text-gray-400">You haven't made any predictions yet.</p>
+        <div className="text-center py-32 backdrop-blur-xl bg-white/50 dark:bg-gray-900/50 rounded-[32px] border border-white/40 dark:border-gray-700/50 shadow-2xl flex flex-col items-center">
+          <SearchX className="w-20 h-20 text-gray-400 mb-6" />
+          <h3 className="text-3xl font-black text-gray-900 dark:text-gray-100 mb-4 tracking-tight">No records found</h3>
+          <p className="text-gray-600 dark:text-gray-400 font-bold text-lg">You haven't made any predictions yet.</p>
         </div>
       )}
 
       {predictions && predictions.length > 0 && (
-        <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden shadow-sm transition-colors">
-          <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-            <thead className="bg-gray-50 dark:bg-gray-900 transition-colors">
+        <div className="backdrop-blur-xl bg-white/60 dark:bg-gray-900/60 rounded-[32px] border border-white/40 dark:border-gray-700/50 shadow-2xl overflow-hidden">
+          <table className="min-w-full divide-y divide-gray-200/50 dark:divide-gray-700/50">
+            <thead className="bg-gray-100/50 dark:bg-gray-800/50 backdrop-blur-md">
               <tr>
-                <th className="px-6 py-4 text-left text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider flex items-center gap-2">
-                  <ImageIcon className="w-4 h-4" /> Image
+                <th className="px-8 py-6 text-left text-sm font-black text-gray-800 dark:text-gray-200 uppercase tracking-widest flex items-center gap-2">
+                  <ImageIcon className="w-5 h-5" /> Image
                 </th>
-                <th className="px-6 py-4 text-left text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                <th className="px-8 py-6 text-left text-sm font-black text-gray-800 dark:text-gray-200 uppercase tracking-widest">
                   <div className="flex items-center gap-2">
-                    <ActivitySquare className="w-4 h-4" /> Prediction
+                    <ActivitySquare className="w-5 h-5" /> Prediction
                   </div>
                 </th>
-                <th className="px-6 py-4 text-left text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                <th className="px-8 py-6 text-left text-sm font-black text-gray-800 dark:text-gray-200 uppercase tracking-widest">
                   <div className="flex items-center gap-2">
-                    <Target className="w-4 h-4" /> Confidence
+                    <Target className="w-5 h-5" /> Confidence
                   </div>
                 </th>
-                <th className="px-6 py-4 text-left text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                <th className="px-8 py-6 text-left text-sm font-black text-gray-800 dark:text-gray-200 uppercase tracking-widest">
                   <div className="flex items-center gap-2">
-                    <Calendar className="w-4 h-4" /> Date
+                    <Calendar className="w-5 h-5" /> Date
                   </div>
                 </th>
               </tr>
             </thead>
-            <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-100 dark:divide-gray-700 transition-colors">
+            <tbody className="divide-y divide-gray-200/50 dark:divide-gray-700/50">
               {predictions.map((p) => (
-                <tr key={p.id} className="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
-                  <td className="px-6 py-4 whitespace-nowrap">
+                <tr key={p.id} className="hover:bg-white/80 dark:hover:bg-gray-800/80 transition-colors group cursor-default">
+                  <td className="px-8 py-6 whitespace-nowrap">
                     {p.image_url ? (
                       <img 
                         src={`${API_BASE}${p.image_url}`} 
                         alt="Scan" 
-                        className="h-16 w-16 object-cover rounded-lg bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm"
+                        className="h-20 w-20 object-cover rounded-xl bg-white border-2 border-black dark:border-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] group-hover:-translate-y-1 group-hover:shadow-[4px_6px_0px_0px_rgba(0,0,0,1)] dark:group-hover:shadow-[4px_6px_0px_0px_rgba(255,255,255,1)] transition-all"
                         onError={(e) => { e.currentTarget.style.display = 'none'; }}
                       />
                     ) : (
-                      <div className="h-16 w-16 bg-gray-100 dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600 flex items-center justify-center">
-                        <ImageIcon className="w-6 h-6 text-gray-300 dark:text-gray-500" />
+                      <div className="h-20 w-20 bg-gray-200 dark:bg-gray-700 rounded-xl border-2 border-black dark:border-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] flex items-center justify-center">
+                        <ImageIcon className="w-8 h-8 text-gray-400" />
                       </div>
                     )}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <span className={`px-4 py-1.5 inline-flex text-sm leading-5 font-bold rounded-full border ${
-                      p.predicted_class === 'Normal' ? 'bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-400 border-green-200 dark:border-green-800' : 'bg-orange-50 dark:bg-orange-900/30 text-orange-700 dark:text-orange-400 border-orange-200 dark:border-orange-800'
+                  <td className="px-8 py-6 whitespace-nowrap">
+                    <span className={`px-5 py-2 inline-flex text-sm font-black uppercase tracking-wider rounded-lg border-2 border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] ${
+                      p.predicted_class === 'Normal' ? 'bg-green-400 text-black' : 'bg-orange-400 text-black'
                     }`}>
                       {p.predicted_class}
                     </span>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-700 dark:text-gray-300">
+                  <td className="px-8 py-6 whitespace-nowrap text-xl font-black text-gray-900 dark:text-white">
                     {(p.confidence * 100).toFixed(1)}%
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 font-medium">
+                  <td className="px-8 py-6 whitespace-nowrap text-lg text-gray-700 dark:text-gray-300 font-bold">
                     {new Date(p.created_at).toLocaleString(undefined, {
                       year: 'numeric', month: 'short', day: 'numeric',
                       hour: '2-digit', minute: '2-digit'

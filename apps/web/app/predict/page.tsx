@@ -29,44 +29,52 @@ export default function PredictPage() {
   };
 
   return (
-    <div className="max-w-5xl mx-auto py-8 w-full">
-      <h1 className="text-4xl font-extrabold mb-8 flex items-center gap-3 text-gray-900 dark:text-gray-100 transition-colors">
-        <FileSearch className="w-10 h-10 text-blue-600 dark:text-blue-400" />
-        Predict Pneumonia
+    <div className="max-w-4xl mx-auto py-12 w-full">
+      <h1 className="text-6xl font-black mb-10 flex items-center gap-4 text-gray-900 dark:text-gray-100 tracking-tighter">
+        <div className="p-3 bg-blue-500 rounded-2xl shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]">
+          <FileSearch className="w-12 h-12 text-white" />
+        </div>
+        Predict Pneumonia.
       </h1>
       
-      <div className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 transition-colors">
+      {/* Glassmorphism Wrapper */}
+      <div className="backdrop-blur-xl bg-white/50 dark:bg-gray-900/50 p-10 rounded-[32px] border border-white/40 dark:border-gray-700/50 shadow-2xl shadow-blue-900/10 transition-colors">
         {!preview ? (
-          <div className="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-xl p-16 text-center hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors group cursor-pointer relative">
-            <UploadCloud className="w-16 h-16 text-gray-400 dark:text-gray-500 mx-auto mb-6 group-hover:text-blue-500 dark:group-hover:text-blue-400 transition-colors" />
-            <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">Upload Chest X-Ray</h3>
-            <p className="text-gray-500 dark:text-gray-400 mb-6">PNG or JPG up to 5MB</p>
-            <label className="inline-flex items-center gap-2 bg-blue-600 dark:bg-blue-500 text-white font-semibold px-6 py-3 rounded-lg cursor-pointer hover:bg-blue-700 dark:hover:bg-blue-600 transition-colors shadow-sm">
-              <ImagePlus className="w-5 h-5" />
+          <div className="border-4 border-dashed border-gray-400 dark:border-gray-600 rounded-3xl p-20 text-center hover:bg-white/60 dark:hover:bg-gray-800/60 transition-colors group cursor-pointer relative shadow-inner">
+            <UploadCloud className="w-20 h-20 text-gray-500 dark:text-gray-400 mx-auto mb-8 group-hover:scale-125 group-hover:text-blue-500 transition-all duration-300" />
+            <h3 className="text-3xl font-black text-gray-900 dark:text-gray-100 mb-3 tracking-tight">Drop Chest X-Ray Here</h3>
+            <p className="text-gray-600 dark:text-gray-400 font-bold mb-8 text-lg">PNG or JPG (Max 5MB)</p>
+            
+            {/* Neo-Brutalist Upload Button */}
+            <label className="inline-flex items-center gap-3 bg-blue-500 text-white border-2 border-black dark:border-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] hover:shadow-none hover:translate-y-[4px] hover:translate-x-[4px] px-8 py-4 rounded-xl font-black text-xl cursor-pointer transition-all">
+              <ImagePlus className="w-6 h-6" />
               Browse Files
               <input type="file" className="absolute inset-0 opacity-0 cursor-pointer" accept="image/png, image/jpeg" onChange={handleFileChange} />
             </label>
           </div>
         ) : (
-          <div className="space-y-8">
-            <div className="flex justify-center bg-gray-50 dark:bg-gray-900/50 p-4 rounded-xl border border-gray-200 dark:border-gray-700 transition-colors">
-              <img src={preview} alt="Preview" className="max-h-72 rounded-lg shadow-sm" />
+          <div className="space-y-10">
+            <div className="flex justify-center bg-white dark:bg-gray-800 p-6 rounded-3xl border-4 border-black dark:border-white shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)] transition-colors">
+              <img src={preview} alt="Preview" className="max-h-96 rounded-xl object-contain" />
             </div>
             
-            <div className="flex justify-center gap-4">
+            <div className="flex justify-center gap-6">
+              {/* Neo-Brutalist Clear Button */}
               <button 
                 onClick={() => { setFile(null); setPreview(null); mutation.reset(); }}
-                className="px-6 py-3 border border-gray-300 dark:border-gray-600 font-semibold rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2 transition-colors"
+                className="px-8 py-4 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white border-2 border-black dark:border-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] hover:shadow-none hover:translate-y-[4px] hover:translate-x-[4px] font-black text-xl rounded-xl flex items-center gap-2 transition-all"
               >
-                <Trash2 className="w-5 h-5" />
+                <Trash2 className="w-6 h-6" />
                 Clear
               </button>
+              
+              {/* Neo-Brutalist Predict Button */}
               <button 
                 onClick={handlePredict}
                 disabled={mutation.isPending}
-                className="px-8 py-3 bg-blue-600 dark:bg-blue-500 font-bold text-white rounded-lg hover:bg-blue-700 dark:hover:bg-blue-600 disabled:opacity-70 flex items-center gap-2 transition-colors shadow-sm"
+                className="px-10 py-4 bg-blue-500 text-white border-2 border-black dark:border-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] hover:shadow-none hover:translate-y-[4px] hover:translate-x-[4px] disabled:opacity-50 disabled:cursor-not-allowed font-black text-xl rounded-xl flex items-center gap-3 transition-all"
               >
-                {mutation.isPending ? <Loader2 className="w-5 h-5 animate-spin" /> : <ShieldAlert className="w-5 h-5" />}
+                {mutation.isPending ? <Loader2 className="w-6 h-6 animate-spin" /> : <ShieldAlert className="w-6 h-6" />}
                 {mutation.isPending ? "Analyzing..." : "Run Prediction"}
               </button>
             </div>
@@ -74,29 +82,31 @@ export default function PredictPage() {
         )}
 
         {mutation.isError && (
-          <div className="mt-8 p-6 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800/50 text-red-800 dark:text-red-400 rounded-xl flex items-start gap-4 shadow-sm transition-colors">
-            <AlertTriangle className="w-6 h-6 flex-shrink-0 mt-1 text-red-600 dark:text-red-400" />
+          <div className="mt-10 p-8 bg-red-400 border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] text-black rounded-2xl flex items-start gap-4">
+            <AlertTriangle className="w-8 h-8 flex-shrink-0 mt-1" />
             <div>
-              <h4 className="font-bold text-lg mb-1">Prediction Failed</h4>
-              <p>{mutation.error.message}</p>
+              <h4 className="font-black text-2xl mb-2">Prediction Failed</h4>
+              <p className="font-bold text-lg">{mutation.error.message}</p>
             </div>
           </div>
         )}
 
         {mutation.isSuccess && (
-          <div className={`mt-8 p-8 rounded-xl border-2 flex items-start gap-6 shadow-sm transition-all ${mutation.data.predicted_class === 'Normal' ? 'bg-green-50 dark:bg-green-900/20 border-green-300 dark:border-green-800 text-green-900 dark:text-green-300' : 'bg-orange-50 dark:bg-orange-900/20 border-orange-300 dark:border-orange-800 text-orange-900 dark:text-orange-300'}`}>
-            <CheckCircle2 className={`w-12 h-12 flex-shrink-0 mt-1 ${mutation.data.predicted_class === 'Normal' ? 'text-green-600 dark:text-green-500' : 'text-orange-600 dark:text-orange-500'}`} />
+          <div className={`mt-10 p-10 rounded-3xl border-4 border-black dark:border-white shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)] flex items-start gap-8 transition-all animate-in zoom-in-95 duration-500 ${mutation.data.predicted_class === 'Normal' ? 'bg-green-400 text-black' : 'bg-orange-400 text-black'}`}>
+            <div className="bg-white p-4 rounded-full border-2 border-black">
+              <CheckCircle2 className={`w-14 h-14 ${mutation.data.predicted_class === 'Normal' ? 'text-green-600' : 'text-orange-600'}`} />
+            </div>
             <div className="w-full">
-              <p className="text-sm font-semibold uppercase tracking-wider opacity-80 mb-1">Diagnosis Result</p>
-              <h3 className="text-4xl font-extrabold mb-6 tracking-tight">{mutation.data.predicted_class}</h3>
-              <div className="grid grid-cols-2 gap-6 pt-6 border-t border-current/20">
+              <p className="text-lg font-bold uppercase tracking-widest opacity-80 mb-2">Diagnosis Result</p>
+              <h3 className="text-6xl font-black mb-8 tracking-tighter">{mutation.data.predicted_class}</h3>
+              <div className="grid grid-cols-2 gap-8 pt-8 border-t-4 border-black/20">
                 <div>
-                  <p className="text-sm font-semibold opacity-80 mb-1">Confidence Score</p>
-                  <p className="font-bold text-2xl">{(mutation.data.confidence * 100).toFixed(1)}%</p>
+                  <p className="text-lg font-bold opacity-80 mb-2">Confidence Score</p>
+                  <p className="font-black text-4xl">{(mutation.data.confidence * 100).toFixed(1)}%</p>
                 </div>
                 <div>
-                  <p className="text-sm font-semibold opacity-80 mb-1">Model Version</p>
-                  <p className="font-bold text-xl">{mutation.data.model_version}</p>
+                  <p className="text-lg font-bold opacity-80 mb-2">Model Version</p>
+                  <p className="font-black text-3xl">{mutation.data.model_version}</p>
                 </div>
               </div>
             </div>
