@@ -32,5 +32,5 @@
     "eslint.config.mjs",
     ".next/dev/types/**/*.ts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "e2e", "__tests__", "vitest.setup.ts", "vitest.config.ts", "**/*.test.tsx", "**/*.spec.ts"]
 }

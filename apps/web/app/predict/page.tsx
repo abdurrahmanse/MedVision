@@ -1,7 +1,5 @@
 "use client";
 
-import { useState } from "react";
-import { usePredictMutation } from "hooks/use-predictions";
 import { FileSearch } from "lucide-react";
 import { UploadZone } from "components/features/predict/upload-zone";
 import { PredictionActions } from "components/features/predict/prediction-actions";
@@ -9,32 +7,16 @@ import { PredictionResult } from "components/features/predict/prediction-result"
 import { MotionReveal } from "components/ui/motion-reveal";
 import { PageTitle } from "components/ui/page-title";
 import { ErrorAlert } from "components/ui/error-alert";
-
+import { usePredictForm } from "hooks/use-predict-form";
 
 export default function PredictPage() {
-  const [file, setFile] = useState<File | null>(null);
-  const [preview, setPreview] = useState<string | null>(null);
-
-  const mutation = usePredictMutation();
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      const selected = e.target.files[0];
-      setFile(selected);
-      setPreview(URL.createObjectURL(selected));
-      mutation.reset();
-    }
-  };
-
-  const handleClear = () => {
-    setFile(null);
-    setPreview(null);
-    mutation.reset();
-  };
-
-  const handlePredict = () => {
-    if (file) mutation.mutate(file);
-  };
+  const { 
+    preview, 
+    mutation, 
+    handleFileChange, 
+    handleClear, 
+    handlePredict 
+  } = usePredictForm();
 
   return (
     <div className="max-w-7xl mx-auto py-8 sm:py-12 w-full px-4 sm:px-0">
