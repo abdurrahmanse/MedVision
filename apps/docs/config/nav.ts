@@ -6,7 +6,7 @@ export const docsNavLinks = [
   },
   {
     text: "Swagger UI",
-    url: "http://localhost:8000/docs",
+    url: process.env.NEXT_PUBLIC_API_URL ? `${process.env.NEXT_PUBLIC_API_URL}/docs` : "http://localhost:8000/docs",
     external: true,
   },
-] as const;
+];

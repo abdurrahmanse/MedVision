@@ -4,8 +4,8 @@ export const siteConfig = {
     "Enterprise-grade pneumonia detection platform — documentation, API reference, and architecture guides.",
   url: "http://localhost:3001",
   github: "https://github.com/abdurrahmanse/MedVision",
-  swagger: "http://localhost:8000/docs",
-  api: "http://localhost:8000",
-} as const;
+  swagger: `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"}/docs`,
+  api: process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000",
+};
 
 export type SiteConfig = typeof siteConfig;

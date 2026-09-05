@@ -18,6 +18,22 @@ const config: NextConfig = {
     { source: "/health", destination: "/api/health" },
     { source: "/ping", destination: "/api/health" },
   ],
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "*.r2.dev",
+      },
+      {
+        protocol: "https",
+        hostname: "*.cloudflarestorage.com",
+      },
+      {
+        protocol: "http",
+        hostname: "localhost",
+      }
+    ],
+  },
 }
 
 export default env.ANALYZE ? withBundleAnalyzer({ enabled: env.ANALYZE })(config) : config
