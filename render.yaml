@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: medvision-api
+    env: docker
+    rootDir: apps/api
+    plan: free
+    healthCheckPath: /api/v1/health
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: REDIS_URL
+        sync: false
+      - key: MODEL_PATH
+        value: "/app/models/pneumonia_classifier_v1.pt"
+      - key: STORAGE_PATH
+        value: "/tmp/uploads"
+      - key: CORS_ORIGINS
+        value: "*"
