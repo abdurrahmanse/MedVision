@@ -10,7 +10,7 @@ interface PredictionDetailProps {
 }
 
 async function getPrediction(id: string): Promise<PredictionResult | { error: string, status: number }> {
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000"
+  const baseUrl = (process.env.INTERNAL_API_URL || process.env.NEXT_PUBLIC_API_URL) || "http://127.0.0.1:8000"
   
   try {
     const res = await fetch(`${baseUrl}/api/v1/predictions/${id}`, {
@@ -39,7 +39,7 @@ export default async function PredictionDetailPage({ params }: PredictionDetailP
     return (
       <div className="max-w-7xl mx-auto py-8 text-center text-red-500 font-bold text-2xl mt-20">
         <h2>Diagnostic Error Page</h2>
-        <p>Tried to fetch: {process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000"}/api/v1/predictions/{resolvedParams.id}</p>
+        <p>Tried to fetch: {(process.env.INTERNAL_API_URL || process.env.NEXT_PUBLIC_API_URL) || "http://127.0.0.1:8000"}/api/v1/predictions/{resolvedParams.id}</p>
         <p>Error details: {prediction.error}</p>
       </div>
     )
@@ -50,7 +50,7 @@ export default async function PredictionDetailPage({ params }: PredictionDetailP
   }
 
   const isNormal = prediction.predicted_class === "Normal"
-  const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000"
+  const API_BASE = (process.env.INTERNAL_API_URL || process.env.NEXT_PUBLIC_API_URL) || "http://127.0.0.1:8000"
 
   return (
     <div className="max-w-7xl mx-auto py-8 sm:py-12 w-full px-4 sm:px-0">
