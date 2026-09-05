@@ -10,6 +10,7 @@ description: FastAPI endpoints for MedVision inference.
 ## Interactive Docs
 
 FastAPI automatically generates interactive Swagger UI at:
+
 - **Swagger UI**: <ApiUrl path="/docs" />
 - **ReDoc**: <ApiUrl path="/redoc" />
 
@@ -24,6 +25,7 @@ GET /api/v1/health
 Returns API health and readiness.
 
 **Response**
+
 ```json
 { "status": "healthy", "model_loaded": true }
 ```
@@ -39,6 +41,7 @@ GET /api/v1/model
 Returns the currently loaded PyTorch model configuration.
 
 **Response**
+
 ```json
 {
   "model_name": "tiny-cnn",
@@ -61,11 +64,12 @@ Content-Type: multipart/form-data
 
 **Body**
 
-| Field | Type | Description |
-|---|---|---|
+| Field   | Type   | Description                             |
+| ------- | ------ | --------------------------------------- |
 | `image` | `File` | JPEG or PNG chest X-ray image (max 5MB) |
 
 **Response** `201 Created`
+
 ```json
 {
   "id": "c9e7f312-4b21-...",
@@ -79,13 +83,13 @@ Content-Type: multipart/form-data
 
 **Error Codes**
 
-| Code | Status | Description |
-|---|---|---|
-| `INVALID_FILE_TYPE` | 415 | Only JPEG/PNG accepted |
-| `FILE_TOO_LARGE` | 413 | Exceeds 5MB limit |
-| `IMAGE_TOO_SMALL` | 422 | Below minimum resolution |
-| `MODEL_UNAVAILABLE` | 503 | Model failed to load |
-| `PREDICTION_FAILED` | 500 | Inference error |
+| Code                | Status | Description              |
+| ------------------- | ------ | ------------------------ |
+| `INVALID_FILE_TYPE` | 415    | Only JPEG/PNG accepted   |
+| `FILE_TOO_LARGE`    | 413    | Exceeds 5MB limit        |
+| `IMAGE_TOO_SMALL`   | 422    | Below minimum resolution |
+| `MODEL_UNAVAILABLE` | 503    | Model failed to load     |
+| `PREDICTION_FAILED` | 500    | Inference error          |
 
 ---
 
@@ -107,6 +111,6 @@ Returns all prediction records, newest first.
 GET /api/v1/predictions/{id}
 ```
 
-| Parameter | Type | Description |
-|---|---|---|
-| `id` | `string` | UUIDv4 of the prediction record |
+| Parameter | Type     | Description                     |
+| --------- | -------- | ------------------------------- |
+| `id`      | `string` | UUIDv4 of the prediction record |

@@ -54,6 +54,23 @@ class ImageService:
         if width < 28 or height < 28:
             raise APIError(code="INVALID_IMAGE", message="Image dimensions too small (minimum 28x28).", status_code=400)
 
+        # ─── Out-Of-Distribution (OOD) X-Ray Heuristic Check ───
+        # Check if the image is actually a grayscale X-ray, reject color photos and selfies
+        from PIL import ImageStat
+        rgb_img = pil_image.convert("RGB")
+        stat = ImageStat.Stat(rgb_img)
+        
+        r_mean, g_mean, b_mean = stat.mean
+        color_variance = abs(r_mean - g_mean) + abs(g_mean - b_mean) + abs(b_mean - r_mean)
+        if color_variance > 15:
+            raise APIError(code="NOT_AN_XRAY", message="This image contains too much color. Please upload a valid grayscale chest X-ray.", status_code=422)
+            
+        r_std, g_std, b_std = stat.stddev
+        avg_std = (r_std + g_std + b_std) / 3
+        if avg_std < 15:
+            raise APIError(code="NOT_AN_XRAY", message="This image lacks the contrast of an X-ray. Please upload a valid chest X-ray.", status_code=422)
+        # ───────────────────────────────────────────────────────
+
         # Save file to Cloudflare R2 or local depending on config
         prediction_id = str(uuid.uuid4())
         ext = ".png" if image.content_type == "image/png" else ".jpg"
