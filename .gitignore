@@ -64,3 +64,4 @@ yarn-error.log*
 *.pem
 .env.development
 .env.production
+storage/uploads/*.png
