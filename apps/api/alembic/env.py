@@ -7,8 +7,7 @@ from sqlalchemy.ext.asyncio import async_engine_from_config
 
 from alembic import context
 
-from app.core.config import get_settings
-from app.core.database import Base
+from app.core.database import Base, DATABASE_URL
 from app.models.prediction import Prediction
 
 config = context.config
@@ -19,10 +18,8 @@ if config.config_file_name is not None:
 target_metadata = Base.metadata
 
 def run_migrations_offline() -> None:
-    settings = get_settings()
-    url = settings.database_url.replace("postgresql://", "postgresql+asyncpg://")
     context.configure(
-        url=url,
+        url=DATABASE_URL,
         target_metadata=target_metadata,
         literal_binds=True,
         dialect_opts={"paramstyle": "named"},
@@ -36,11 +33,8 @@ def do_run_migrations(connection: Connection) -> None:
         context.run_migrations()
 
 async def run_async_migrations() -> None:
-    settings = get_settings()
-    url = settings.database_url.replace("postgresql://", "postgresql+asyncpg://")
-    
     configuration = config.get_section(config.config_ini_section, {})
-    configuration["sqlalchemy.url"] = url
+    configuration["sqlalchemy.url"] = DATABASE_URL
     
     connectable = async_engine_from_config(
         configuration,

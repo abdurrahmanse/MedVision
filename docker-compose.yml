@@ -42,6 +42,9 @@ services:
     restart: unless-stopped
     env_file:
       - .env
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@db:5432/${POSTGRES_DB:-medvision}
+      - REDIS_URL=redis://cache:6379/0
     ports:
       - "8000:8000"
     volumes:
@@ -78,6 +81,9 @@ services:
     restart: unless-stopped
     env_file:
       - .env
+    environment:
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@db:5432/${POSTGRES_DB:-medvision}
+      - REDIS_URL=redis://cache:6379/0
     volumes:
       - ./ml:/app
       - ./storage:/storage
