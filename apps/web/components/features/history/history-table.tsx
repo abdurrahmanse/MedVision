@@ -227,7 +227,7 @@ export function HistoryTable({ predictions }: HistoryTableProps) {
                           <td className="px-4 sm:px-8 py-4 sm:py-6 whitespace-nowrap">
                             {p.image_url ? (
                               <img 
-                                src={`${API_BASE}${p.image_url}`} 
+                                src={p.image_url.startsWith("http") ? p.image_url : `${API_BASE}${p.image_url}`} 
                                 alt="Scan" 
                                 className="h-12 w-12 sm:h-20 sm:w-20 object-cover rounded-lg sm:rounded-xl bg-white border-[1.5px] sm:border-2 border-black dark:border-white shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] sm:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)] dark:sm:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] group-hover:-translate-y-1 group-hover:shadow-[2px_4px_0px_0px_rgba(0,0,0,1)] sm:group-hover:shadow-[4px_6px_0px_0px_rgba(0,0,0,1)] dark:group-hover:shadow-[2px_4px_0px_0px_rgba(255,255,255,1)] dark:sm:group-hover:shadow-[4px_6px_0px_0px_rgba(255,255,255,1)] transition-all"
                                 onError={(e) => { e.currentTarget.style.display = 'none'; }}
@@ -284,7 +284,7 @@ export function HistoryTable({ predictions }: HistoryTableProps) {
                     <div className="relative z-10 w-full mb-4">
                       {p.image_url ? (
                         <img 
-                          src={`${API_BASE}${p.image_url}`} 
+                          src={p.image_url.startsWith("http") ? p.image_url : `${API_BASE}${p.image_url}`} 
                           alt="Scan" 
                           className="w-full aspect-square object-cover rounded-2xl bg-white border-2 border-black dark:border-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] group-hover:-translate-y-1 group-hover:shadow-[4px_6px_0px_0px_rgba(0,0,0,1)] dark:group-hover:shadow-[4px_6px_0px_0px_rgba(255,255,255,1)] transition-all"
                           onError={(e) => { e.currentTarget.style.display = 'none'; }}

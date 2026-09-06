@@ -78,7 +78,7 @@ export default async function PredictionDetailPage({ params }: PredictionDetailP
           <div className="w-full relative aspect-square rounded-2xl overflow-hidden border-2 border-black dark:border-white shadow-inner bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
             {prediction.image_url ? (
               <img 
-                src={`${API_BASE}${prediction.image_url}`} 
+                src={prediction.image_url.startsWith("http") ? prediction.image_url : `${API_BASE}${prediction.image_url}`} 
                 alt="X-ray scan"
                 className="w-full h-full object-cover"
               />
