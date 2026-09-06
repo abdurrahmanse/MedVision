@@ -1,3 +1,5 @@
+--extra-index-url https://download.pytorch.org/whl/cpu
+
 # ─────────────────────────────────────────────────────────────────────────────
 # MedVision ML Python Dependencies
 # Pinned to latest stable versions as of September 2026
