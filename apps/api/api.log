@@ -1,4 +1,0 @@
-[2;36m[09/05/26 12:12:51][0m[2;36m [0m[34mINFO    [0m MedVision API starting in [32m'development'[0m mode[33m...[0m    
-[2;36m                   [0m[2;36m [0m[34mINFO    [0m Loading ML model into memory[33m...[0m                    
-[2;36m[09/05/26 12:12:54][0m[2;36m [0m[34mINFO    [0m [1;92m127.0.0.1[0m:[1;36m56395[0m - [32m"[0m[1;33mPOST[0m[32m /api/v1/predictions [0m       
-[2;36m                    [0m         [32mHTTP/1.1"[0m [1;36m500[0m                                      

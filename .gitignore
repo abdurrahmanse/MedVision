@@ -67,3 +67,5 @@ yarn-error.log*
 storage/uploads/*.png
 apps/api/test_uploads/*.jpg
 apps/api/storage/images/*
+apps/api/*.log
+apps/api/*.err
