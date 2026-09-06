@@ -1,5 +1,4 @@
 import asyncio
-import os
 from logging.config import fileConfig
 
 from sqlalchemy import pool
@@ -8,14 +7,8 @@ from sqlalchemy.ext.asyncio import async_engine_from_config
 
 from alembic import context
 
-# Import our FastAPI settings and Base model
-import sys
-sys.path.append(os.path.dirname(os.path.dirname(__file__)))
-from app.core.config import get_settings
-from app.core.database import Base
-from app.models import *  # This registers all models
-
-settings = get_settings()
+from app.core.database import Base, DATABASE_URL
+from app.models.prediction import Prediction
 
 config = context.config
 
@@ -25,10 +18,8 @@ if config.config_file_name is not None:
 target_metadata = Base.metadata
 
 def run_migrations_offline() -> None:
-    # Use the database url from settings, explicitly formatted for asyncpg
-    url = settings.database_url.replace("postgresql://", "postgresql+asyncpg://")
     context.configure(
-        url=url,
+        url=DATABASE_URL,
         target_metadata=target_metadata,
         literal_binds=True,
         dialect_opts={"paramstyle": "named"},
@@ -43,8 +34,7 @@ def do_run_migrations(connection: Connection) -> None:
 
 async def run_async_migrations() -> None:
     configuration = config.get_section(config.config_ini_section, {})
-    # Override sqlalchemy.url with our settings URL
-    configuration["sqlalchemy.url"] = settings.database_url.replace("postgresql://", "postgresql+asyncpg://")
+    configuration["sqlalchemy.url"] = DATABASE_URL
     
     connectable = async_engine_from_config(
         configuration,
