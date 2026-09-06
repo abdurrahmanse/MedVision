@@ -79,12 +79,13 @@ export default async function PredictionDetailPage({ params }: PredictionDetailP
         <div className="flex flex-col items-center rounded-[32px] border-2 border-black bg-white/60 p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] backdrop-blur-xl sm:p-8 dark:border-white dark:bg-gray-900/60 dark:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)]">
           <div className="relative flex aspect-square w-full items-center justify-center overflow-hidden rounded-2xl border-2 border-black bg-gray-100 shadow-inner dark:border-white dark:bg-gray-800">
             {prediction.image_url ? (
-              <img
+              <Image
                 src={
                   prediction.image_url.startsWith("http") ? prediction.image_url : `${API_BASE}${prediction.image_url}`
                 }
                 alt="X-ray scan"
-                className="h-full w-full object-cover"
+                fill
+                className="object-cover"
               />
             ) : (
               <Stethoscope className="h-24 w-24 text-gray-300 opacity-50 dark:text-gray-600" />

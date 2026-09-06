@@ -244,13 +244,12 @@ export function HistoryTable({ predictions }: HistoryTableProps) {
                         >
                           <td className="px-4 py-4 whitespace-nowrap sm:px-8 sm:py-6">
                             {p.image_url ? (
-                              <img
+                              <Image
                                 src={p.image_url.startsWith("http") ? p.image_url : `${API_BASE}${p.image_url}`}
                                 alt="Scan"
+                                width={80}
+                                height={80}
                                 className="h-12 w-12 rounded-lg border-[1.5px] border-black bg-white object-cover shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all group-hover:-translate-y-1 group-hover:shadow-[2px_4px_0px_0px_rgba(0,0,0,1)] sm:h-20 sm:w-20 sm:rounded-xl sm:border-2 sm:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] sm:group-hover:shadow-[4px_6px_0px_0px_rgba(0,0,0,1)] dark:border-white dark:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)] dark:group-hover:shadow-[2px_4px_0px_0px_rgba(255,255,255,1)] dark:sm:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] dark:sm:group-hover:shadow-[4px_6px_0px_0px_rgba(255,255,255,1)]"
-                                onError={(e) => {
-                                  e.currentTarget.style.display = "none"
-                                }}
                               />
                             ) : (
                               <div className="flex h-12 w-12 items-center justify-center rounded-lg border-[1.5px] border-black bg-gray-200 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] sm:h-20 sm:w-20 sm:rounded-xl sm:border-2 sm:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:border-white dark:bg-gray-700 dark:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)] dark:sm:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]">
@@ -306,13 +305,12 @@ export function HistoryTable({ predictions }: HistoryTableProps) {
 
                     <div className="relative z-10 mb-4 w-full">
                       {p.image_url ? (
-                        <img
+                        <Image
                           src={p.image_url.startsWith("http") ? p.image_url : `${API_BASE}${p.image_url}`}
                           alt="Scan"
+                          width={400}
+                          height={400}
                           className="aspect-square w-full rounded-2xl border-2 border-black bg-white object-cover shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all group-hover:-translate-y-1 group-hover:shadow-[4px_6px_0px_0px_rgba(0,0,0,1)] dark:border-white dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] dark:group-hover:shadow-[4px_6px_0px_0px_rgba(255,255,255,1)]"
-                          onError={(e) => {
-                            e.currentTarget.style.display = "none"
-                          }}
                         />
                       ) : (
                         <div className="flex aspect-square w-full items-center justify-center rounded-2xl border-2 border-black bg-gray-200 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:border-white dark:bg-gray-800 dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]">
