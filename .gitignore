@@ -66,3 +66,4 @@ yarn-error.log*
 .env.production
 storage/uploads/*.png
 apps/api/test_uploads/*.jpg
+apps/api/storage/images/*
